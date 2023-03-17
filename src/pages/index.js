@@ -7,6 +7,8 @@ import ReadVideo from '/src/components/ReadVideo.vue';
 
 const BrowsePage = () => import("./BrowsePage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
+const ReplayPage = () => import("./ReplayPage/index.vue");
+const DirectPage = () => import("./DirectPage/index.vue");
 
 const routes = [
   {
@@ -29,26 +31,30 @@ const routes = [
     path: "/",
     component: BrowsePage,
     name: "Home",
-    props: { isHeader: true },
+    props: { isHeader: false },
   },
+
   {
-    path: "/browse/tv",
+    path: "/browse/stream",
     component: BrowsePage,
-    name: "TV Shows",
+    name: "Programmes",
     props: { isHeader: true },
   },
+
   {
-    path: "/browse/movies",
-    component: BrowsePage,
-    name: "Movies",
+    path: "/browse/direct",
+    component: DirectPage,
+    name: "Direct",
     props: { isHeader: true },
   },
+  
   {
-    path: "/browse/popular",
-    component: BrowsePage,
-    name: "New & Popular",
+    path: "/browse/replay",
+    component: ReplayPage,
+    name: "Replay",
     props: { isHeader: true },
   },
+
   {
     path: "/search",
     component: SearchPage,

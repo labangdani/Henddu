@@ -31,18 +31,6 @@
                 <IconPlayFill />
                 <p class="text-bold">Play</p>
               </Button>
-              <Button
-                class="
-                  text-white
-                  bg-secondary bg-opacity-60
-                  hover:bg-opacity-40
-                  shadow-lg
-                "
-                @click="handleMoreInfoClick"
-              >
-                <IconInfoCircle />
-                <p class="text-bold">More info</p>
-              </Button>
             </div>
           </div>
         </transition>
@@ -57,7 +45,6 @@
 import { computed } from "vue";
 
 import IconPlayFill from "~icons/ph/play-fill";
-import IconInfoCircle from "~icons/bx/bx-info-circle";
 
 import { getLatestMovies } from "../services/movies";
 import { getLatestTVShows } from "../services/tv";
@@ -73,7 +60,7 @@ import { randomIndex } from "../utils";
 import BannerSkeleton from "../skeletons/BannerSkeleton.vue";
 
 export default {
-  components: { Image, Button, IconPlayFill, IconInfoCircle, BannerSkeleton },
+  components: { Image, Button, IconPlayFill, BannerSkeleton },
   props: ["type"],
   setup({ type }) {
     let queryFn;

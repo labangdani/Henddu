@@ -3,10 +3,10 @@
     <Banner :type="type" v-if="isDesktop" />
 
     <div
-      class="px-4 md:px-12 relative z-10 space-y-12"
+      class="px-4 pt-10 md:px-12 relative z-10 space-y-12"
       :class="[isDesktop ? '-mt-28' : 'mt-20']"
     >
-      <SectionContainer :sections="sections" />
+      <SectionContainer :sections="listsections" />
     </div>
   </div>
 </template>
@@ -16,27 +16,56 @@ import Banner from "../../components/Banner.vue";
 import useDevice from "../../hooks/useDevice";
 import { mapState} from 'vuex';
 
-
+// const ITEMS = [
+//   replay = movies,
+//   home = sect
+// ]
 export default {
+
   components: {
     SectionContainer,
     Banner,
   },
   setup() {
     const { isDesktop } = useDevice();
-
     return { isDesktop };
   },
-  
+
     computed:{
         ...mapState({
-          sections:'sections'
-        })
+          listsections:'sections',
+          // listvideos:'videos',
+        }),
+
+        //  type() {
+
+        //       if (this.$route.path.includes("replay")) {
+        //         return listvideos;
+        //       }
+
+        //       if (this.$route.path.includes("direct")) {
+        //         return "direct";
+        //       }
+
+        //       if (this.$route.path.includes("stream")) {
+        //         return "stream";
+        //       }
+
+        //       return ;
+        //       listsections;
+        //     },
+
+        //     items() {
+        //       return this.type;
+        //     },
+
+       
       },
 
-   mounted(){
-    this.$store.dispatch('get_sections');
-  }, 
+         mounted(){
+            this.$store.dispatch('get_sections');
+            // this.$store.dispatch('get_videos');
+          }, 
 };
 </script>
 <style>

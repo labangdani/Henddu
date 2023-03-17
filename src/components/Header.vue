@@ -11,9 +11,25 @@
         <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4 mt-2.5" />
 
         <div class="items-center space-x-16 hidden lg:flex lg:ml-12 text-lg font-bold">
-          <router-link to="/" class="hover:text-gray-300 font-netflix_medium transition duration-300" :class="{Green: connect === 'Email' || connect === ''}" aria-current="page" @click="verifie_connection">Replay</router-link>
-          <router-link to="/direct" class="hover:text-gray-300 font-netflix_medium transition duration-300" aria-current="page" @click="verifie_connection">Direct</router-link>
-          <router-link to="#" class="hover:text-gray-300 font-netflix_medium transition duration-300" aria-current="page" @click="verifie_connection">Stream</router-link>
+         <router-link
+            v-for="route in routes"
+            :to="route.path"
+            :key="route.path"
+            class="
+              hover:text-gray-300
+              text-sm
+              font-netflix_medium
+              transition
+              duration-300
+            "
+            :class="[
+              currentRoute.name === route.name
+                ? 'text-white'
+                : 'text-typography',
+            ]"
+          >
+            {{ route.name }}
+          </router-link>
         </div>
       </div>
 

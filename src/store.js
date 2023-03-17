@@ -196,15 +196,7 @@ const store = createStore({
       // ************ACTION GET VIDEOS****************
 
       get_videos:({commit})=>{
-          let token  = localStorage.getItem("jwtToken");
-          console.log(token);
-
-          Api.get('/streamvod/rest/videos/all', {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: "Bearer " + token,
-              }
-            })
+          Api.get('/streamvod/rest/videos/all')
           .then(function (response) {
               commit('videos',response.data.content);
               console.log(response.data.content);
@@ -230,3 +222,6 @@ const store = createStore({
 })
 
 export default store;
+
+ 
+  

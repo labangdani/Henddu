@@ -1,87 +1,85 @@
 <template>
-    <section class="pd-10 section banner pt-5">
-        <div>
-            <div class="row">
-                <div class="col-md-7">
-                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;" itemscope itemtype="https://schema.org/VideoObject">
-                        <video ref="videoPlayer" src="" controls style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;" width="720" height="480"></video>
-                    </div>
-                    
+    <section class="">
+        <div class="grid grid-cols-3 mt-20">
+            <div class="col-span-2 pl-20 pr-10">
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;" itemscope itemtype="https://schema.org/VideoObject">
+                    <video ref="videoPlayer" src="" controls style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;" width="720" height="480"></video>
+                </div>
+                
 
-                    <div class="like-block">
-                        <div :class="{colorGreen: likeOk === true}"  @click="likeVideo()">
-                            <font-awesome-icon icon="fa-solid fa-thumbs-up" />
-                            <span>{{likeTab.length}}</span>
+                <div class="like-block">
+                    <div :class="{colorGreen: likeOk === true}"  @click="likeVideo()">
+                        <font-awesome-icon icon="fa-solid fa-thumbs-up" />
+                        <span>{{likeTab.length}}</span>
+                    </div>
+                    <div>
+                        <font-awesome-icon icon="fa-solid fa-message" />
+                        <span>{{commentTab.length}}</span>
+                    </div>
+                    <div @click="favVideo()" :class="{colorGreen: favOk === true}">
+                        <font-awesome-icon icon="fa-solid fa-bookmark" />
+                        <!-- <span>{{favVideoTab.length}}</span> -->
+                    </div>
+                </div><br>
+                <div class="title-video">{{ title }}</div><br>
+                <div class="description-video">{{ description }}</div>
+                <br><br>
+
+                <form action="">
+                    <div class="cadre-imput-comment">
+                        <div class="input-comment">
+                            <div class="input-group flex-nowrap">
+                                <span class="camera" id="addon-wrapping"><font-awesome-icon icon="fa-solid fa-camera" /></span>
+                                <input type="text" v-model="content_comment" class="form-control" placeholder="Type Comment" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
                         </div>
+                        <div class="comment-button">
+                            <button class="annuler">Annuler</button>
+                            <button class="btn-order1 rounded-3 me-4" @click="insertComment()">Ajouter un commentaire</button>
+                        </div>
+                    </div>
+                </form>
+
+                <br><br>
+                <!-- <p>{{description}}</p> -->
+                <div class="commentaire mt-5" v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
+                    <div class="w-10 rounded-full">
+                            <img src="/src/assets/images/profile.png" alt="">
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-message" />
-                            <span>{{commentTab.length}}</span>
+                            <div class="name-commentaire">{{comment.user}}</div>
+                            <div class="time-commentaire">{{ moment(comment.createdAt).fromNow() }}</div>
                         </div>
-                        <div @click="favVideo()" :class="{colorGreen: favOk === true}">
-                            <font-awesome-icon icon="fa-solid fa-bookmark" />
-                            <!-- <span>{{favVideoTab.length}}</span> -->
-                        </div>
-                    </div><br>
-                    <div class="title-video">{{ title }}</div><br>
-                    <div class="description-video">{{ description }}</div>
-                    <br><br>
-
-                   <form action="">
-                        <div class="cadre-imput-comment">
-                            <div class="input-comment">
-                                <div class="input-group flex-nowrap">
-                                    <span class="camera" id="addon-wrapping"><font-awesome-icon icon="fa-solid fa-camera" /></span>
-                                    <input type="text" v-model="content_comment" class="form-control" placeholder="Type Comment" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-                            </div>
-                            <div class="comment-button">
-                                <button class="annuler">Annuler</button>
-                                <button class="btn-order1 rounded-3 me-4" @click="insertComment()">Ajouter un commentaire</button>
-                            </div>
-                        </div>
-                   </form>
-
-                    <br><br>
-                    <!-- <p>{{description}}</p> -->
-                    <div class="commentaire mt-5" v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
-                        <div class="user-commentaire">
-                                <img src="/src/assets/images/profile.png" alt="">
-                            <div>
-                                <div class="name-commentaire">{{comment.user}}</div>
-                                <div class="time-commentaire">{{ moment(comment.createdAt).fromNow() }}</div>
-                            </div>
-                        </div>
-                        <div class="commentaire-text">{{ comment.content }}</div>
-                        <!-- <div class="appreciation-commentaire">
-                            <p>Like</p>
-                            <p>Reply</p>
-                        </div> -->
                     </div>
+                    <div class="commentaire-text">{{ comment.content }}</div>
+                    <!-- <div class="appreciation-commentaire">
+                        <p>Like</p>
+                        <p>Reply</p>
+                    </div> -->
                 </div>
+            </div>
 
 
-                <div class=" col-md-5">
+            <div class="pr-10 ">
 
-                        <div class="card mb-3 text-white" style="max-width: 540px; max-height:150px; background-color: transparent; border: none;" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
-                            <router-link class="router-link" :to="'/ReadVideo/'+videoSimilaire.id">
+                    <div class="" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
+                        <router-link class="router-link" :to="'/ReadVideo/'+videoSimilaire.id">
 
-                                <div class="row g-0" style="max-width: 540px; max-height:150px;">
-                                    <div class="col-md-4" style="max-height:150px;">
-                                        <img :src="videoSimilaire.image" style="height:150px; width: 100%;" class="skeleton img-fluid rounded-start">
-                                    </div>
-                                    <div class="col-md-8" style="max-height:120px;">
-                                        <div class="card-body">
-                                            <h6 class="card-title"><strong>{{ videoSimilaire.title }}</strong></h6>
-                                            <p class="smoll-text card-text">{{ videoSimilaire.description }}</p>
-                                            <p class=""><small class="text-muted">{{ videoSimilaire.years }}</small></p>
-                                        </div>
+                            <div >
+                                <div class="col-md-4" style="max-height:150px;">
+                                    <img :src="videoSimilaire.image" style="height:150px; width: 100%;" class="skeleton img-fluid rounded-start">
+                                </div>
+                                <div class="col-md-8" style="max-height:120px;">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><strong>{{ videoSimilaire.title }}</strong></h6>
+                                        <p class="smoll-text card-text">{{ videoSimilaire.description }}</p>
+                                        <p class=""><small class="text-muted">{{ videoSimilaire.years }}</small></p>
                                     </div>
                                 </div>
-                            </router-link>
-                        </div>
+                            </div>
+                        </router-link>
+                    </div>
 
 
-                </div>
             </div>
         </div>
     </section>

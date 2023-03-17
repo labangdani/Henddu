@@ -7,7 +7,7 @@ import Section from "./Section.vue";
 import Button from "./Button.vue";
 
 export default {
-  props: ["sections"],
+  props: ["sections","videos"],
   components: { Section, Button },
 };
 </script>
