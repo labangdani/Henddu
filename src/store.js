@@ -83,32 +83,63 @@ const store = createStore({
           likedUsers: [],
           playlists: [],
           comments: []
+      },
+
+      images:{
+        id:'',
+        name:'',
+        size:'',
+        url:''
+      },
+
+      categories:{
+        description:'',
+        id:'',
+        name:'',
+        images:'',
+        videos:[],
+      },
+
+      getstreams:{
+        id:'',
+        description:'',
+        titre:'',
+        images:[],
       }
   },
   mutations: {
-      setStatus: function (state, Status) {
-          state.status = Status 
-      },
-      logUser: function (state, user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          state.user = user;
-      },
-      userInfos: function(state, userInfos){
-          state.userInfos = userInfos
-      },
-      videos: function (state, videos){
-          state.videos = videos
-      },
-      sections: function (state, sections){
-        state.sections = sections
+    setStatus: function (state, Status) {
+        state.status = Status 
+    },
+    logUser: function (state, user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        state.user = user;
+    },
+    userInfos: function(state, userInfos){
+        state.userInfos = userInfos
+    },
+    videos: function (state, videos){
+        state.videos = videos
+    },
+    sections: function (state, sections){
+    state.sections = sections
+    },
+    categories: function (state, categories){
+    state.categories = categories
+    },
+    getstreams: function (state, getstreams){
+        state.getstreams = getstreams
         },
-      logout:function(state){
-          state.user = {
-              id: -1,
-              token:'',
-          }
-          localStorage.removeItem('user')
-      }
+    images: function (state, images){
+        state.images = images
+        },
+    logout:function(state){
+        state.user = {
+            id: -1,
+            token:'',
+        }
+        localStorage.removeItem('user')
+    }
   },
   actions:{
 
@@ -129,6 +160,9 @@ const store = createStore({
               })
           });
       },
+
+      
+
       loginToPhone:({commit}, userInfos) =>{
           commit('setStatus','loading');
           return new Promise((resolve, reject) => {
@@ -143,6 +177,7 @@ const store = createStore({
               })
           });
       },
+
       loginToUsername:({commit}, userInfos) =>{
           commit('setStatus','loading');
           return new Promise((resolve, reject) => {
@@ -205,9 +240,37 @@ const store = createStore({
           })
       },
 
+      get_getstreams:({commit})=>{
+          Api.getwithouttoken('/streamvod/api/invite/guest-screen/all')
+          .then(function (response) {
+              commit('getstreams',response.data.content);
+              console.log(response.data.content);
+          }).catch(function(err) {
+              console.log(err);
+          })
+      },
+
+      get_categories:({commit})=>{
+          Api.get('/streamvod/rest/categories/all')
+          .then(function (response) {
+              commit('categories',response.data.content);
+              console.log(response.data.content);
+          }).catch(function(err) {
+              console.log(err);
+          })
+      },
+
+      get_categorie_videos:({commit},id_categorie)=>{
+          Api.get('/streamvod/rest/videos/'+id_categorie+'/videos')
+          .then(function (response) {
+              commit('videos',response.data.content);
+              console.log(response.data.content);
+          }).catch(function(err) {
+              console.log(err);
+          })
+      },
+
       get_sections:({commit})=>{
-        // let token  = localStorage.getItem("jwtToken");
-        // console.log(token);
 
         Api.get('/streamvod/rest/section/all')
         .then(function (response) {

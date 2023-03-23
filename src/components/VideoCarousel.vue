@@ -1,18 +1,38 @@
 <template>
-  <div
+  <!-- <div
     ref="container"
-    class="carousel-container relative"
+    class="carousel-container mb-14 pt-6 relative"
     :class="[childHovering ? 'animate-z-hover' : 'animate-z-unhover']"
+    v-if="connected==false"
   >
     <Swiper
       v-bind="options"
       @swiper="onReady"
       @slideChange="handleToggleButton"
     >
+      <SwiperSlide v-for="image in images" :key="image.id">
+        <video-card :image="image" :id="image.id" />
+      </SwiperSlide>
+    </Swiper>
+  </div> -->
+
+
+  <div
+    ref="container"
+    class="carousel-container mb-14 pt-6 relative"
+    :class="[childHovering ? 'animate-z-hover' : 'animate-z-unhover']"
+   
+  >
+    <Swiper
+      v-bind="options"
+      @swiper="onReady"
+      @slideChange="handleToggleButton"
+    >
+      
       <SwiperSlide v-for="video in videos" :key="video.id">
         <video-card :video="video" :id="video.id" />
+        <div class="flex mt-2.5 text-lg font-bold justify-center">{{video.title}}</div>
       </SwiperSlide>
-
       <template #container-end>
         <div
           class="
@@ -57,11 +77,7 @@ import "swiper/css";
 import VideoCard from "./VideoCard.vue";
 
 export default {
-    props: {
-    videos: {
-      type: Array,
-    },
-  },
+  props: ["videos", "images"],
   setup() {
     const container = ref(null);
     const childHovering = ref(false);
@@ -193,6 +209,23 @@ export default {
     IconArrowRight,
     IconArrowLeft,
   },
+
+  data() {
+    return {
+      connected:false,
+      user:'',    }
+  },
+
+  mounted(){
+    if(localStorage.getItem('user')){
+      this.connected = true
+      console.log("bingo")
+    }
+    else{
+      console.log("failed")
+    }
+  }, 
+
 };
 </script>
 

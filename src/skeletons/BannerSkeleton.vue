@@ -9,7 +9,6 @@
 
           <div class="flex items-center space-x-2">
             <button-skeleton />
-            <button-skeleton />
           </div>
         </div>
       </div>

@@ -17,9 +17,13 @@ export const Api = {
         }
 
         return axios.get(serverUrl + route, config)
-        // return axios.get(serverUrl + route, {params}, config)
     },
     
+    getwithouttoken(route) {
+       
+        return axios.get(serverUrl + route)
+    },
+
     post(route, data, config) {
        
         return axios.post(serverUrl + route, data, config)

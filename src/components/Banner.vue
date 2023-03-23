@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full mb-8 ">
     <banner-skeleton v-if="isLoading" />
     <div v-if="!isLoading" class="banner-container relative w-full h-full">
       <div class="min-w-full min-h-full">

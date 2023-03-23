@@ -18,6 +18,17 @@
     @mouseleave="handleMouseLeave"
     @click="handleClick"
   >
+
+
+  <div v-if="connected==false">
+    <Image
+      :src="image"
+      :size="185"
+      :class="{ 'rounded-b-none shadow': isScaled }"
+      :alt="image"
+    />
+  </div>
+  <div v-else>
     <Image
       :src="video.image.url"
       :size="185"
@@ -79,6 +90,8 @@
       </div>
     </div>
   </div>
+
+  </div>
 </template>
 
 <script>
@@ -97,7 +110,7 @@ import Image from "./Image.vue";
 import CircleButton from "./CircleButton.vue";
 
 export default {
-  props: ["video","id"],
+  props: ["video","id", "image"],
   components: {
     Image,
     IconPlayFill,
@@ -108,7 +121,7 @@ export default {
     IconPlus,
     IconStar,
   },
-  setup({ video }) {
+  setup() {
     const isScaled = ref(false);
     const timeout = ref(null);
     const container = ref(null);
@@ -163,6 +176,24 @@ export default {
       // handleClick,
     };
   },
+  
+  data() {
+    return {
+      connected:false,
+      user:'',    }
+  },
+
+  mounted(){
+
+    if(localStorage.getItem('user')){
+      this.connected = true
+      console.log("bingo")
+    }
+    else{
+      console.log("failed")
+    }
+  }, 
+
 };
 </script>
 

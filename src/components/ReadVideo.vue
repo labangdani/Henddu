@@ -1,9 +1,9 @@
 <template>
-    <section class="">
+    <section>
         <div class="grid grid-cols-3 mt-20">
             <div class="col-span-2 pl-20 pr-10">
                 <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;" itemscope itemtype="https://schema.org/VideoObject">
-                    <video ref="videoPlayer" src="" controls style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;" width="720" height="480"></video>
+                    <video class="w-full shadow-lg" ref="videoPlayer" autoplay loop controls muted></video>
                 </div>
                 
 
@@ -58,29 +58,24 @@
                 </div>
             </div>
 
-
             <div class="pr-10 ">
-
-                    <div class="" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
-                        <router-link class="router-link" :to="'/ReadVideo/'+videoSimilaire.id">
-
-                            <div >
-                                <div class="col-md-4" style="max-height:150px;">
-                                    <img :src="videoSimilaire.image" style="height:150px; width: 100%;" class="skeleton img-fluid rounded-start">
-                                </div>
-                                <div class="col-md-8" style="max-height:120px;">
-                                    <div class="card-body">
-                                        <h6 class="card-title"><strong>{{ videoSimilaire.title }}</strong></h6>
-                                        <p class="smoll-text card-text">{{ videoSimilaire.description }}</p>
-                                        <p class=""><small class="text-muted">{{ videoSimilaire.years }}</small></p>
-                                    </div>
+                <div class="" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
+                    <router-link class="router-link" :to="'/ReadVideo/'+videoSimilaire.id">
+                        <div >
+                            <div class="col-md-4" style="max-height:150px;">
+                                <img :src="videoSimilaire.image" style="height:150px; width: 100%;" class="skeleton img-fluid rounded-start">
+                            </div>
+                            <div class="col-md-8" style="max-height:120px;">
+                                <div class="card-body">
+                                    <h6 class="card-title"><strong>{{ videoSimilaire.title }}</strong></h6>
+                                    <p class="smoll-text card-text">{{ videoSimilaire.description }}</p>
+                                    <p class=""><small class="text-muted">{{ videoSimilaire.years }}</small></p>
                                 </div>
                             </div>
-                        </router-link>
-                    </div>
-
-
-            </div>
+                        </div>
+                    </router-link>
+                </div>
+            </div>  
         </div>
     </section>
 </template>

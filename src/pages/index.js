@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import FormConnect from '/src/components/Forms/FormConnect.vue';
 import FormSignUp from '/src/components/Forms/FormSignUp.vue';
 import ReadVideo from '/src/components/ReadVideo.vue';
 
@@ -9,11 +8,12 @@ const BrowsePage = () => import("./BrowsePage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
 const ReplayPage = () => import("./ReplayPage/index.vue");
 const DirectPage = () => import("./DirectPage/index.vue");
+const LoginPage = () => import("./LoginPage/index.vue");
 
 const routes = [
   {
     path: "/login",
-    component: FormConnect,
+    component: LoginPage,
     props: { isHeader: false },
   },
   {
@@ -35,8 +35,8 @@ const routes = [
   },
 
   {
-    path: "/browse/stream",
-    component: BrowsePage,
+    path: "/browse/replay",
+    component: ReplayPage,
     name: "Programmes",
     props: { isHeader: true },
   },
@@ -49,9 +49,9 @@ const routes = [
   },
   
   {
-    path: "/browse/replay",
-    component: ReplayPage,
-    name: "Replay",
+    path: "/browse/stream",
+    component: BrowsePage,
+    name: "Stream",
     props: { isHeader: true },
   },
 

@@ -1,19 +1,25 @@
 <template>
-    <div class="w-full h-full md:pb-44">
-    <Banner :type="type" v-if="isDesktop" />
-
-    <div
-      class="px-4 md:px-12 relative z-10 space-y-12"
-      :class="[isDesktop ? '-mt-28' : 'mt-20']"
-    >
-        <video-carousel-skeleton v-if="isLoading" />
-
-
-        <div class="space-y-2" v-else>
-            <video-carousel :videos="listvideos" />
+  <section class="p-20">
+    <h1 class="text-4xl font-light font-sans"> Programmes TV</h1>
+    <video-carousel-skeleton v-if="isLoading" />
+    <div class="" v-else>
+      <div class="grid grid-cols-2 p-5">
+        <div>
+          <ul class="flex space-x-4 text-sm" >
+            <li v-for="categorie in listcategories" :key="categorie.id">
+              <button class="rounded-full font-bold px-4 py-0.5 bg-[#07693A]" v-on:click="getCategorieVideo(categorie.id)">{{categorie.name}}</button>
+            </li>
+          </ul>
         </div>
+
+        <div>
+
+        </div>
+      </div>
+      <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+      <video-carousel :videos="videos" />
     </div>
-    </div>
+  </section>
 </template>
 
 <script>
@@ -22,13 +28,10 @@ import VideoCarouselSkeleton from "../../skeletons/VideoCarouselSkeleton.vue";
 import Banner from "../../components/Banner.vue";
 
 import useDevice from "../../hooks/useDevice";
-import { mapState} from 'vuex';
+import {mapState} from 'vuex';
+import {Api} from '../../helpers';
 
 
-// const ITEMS = [
-//   replay = movies,
-//   home = sect
-// ]
 export default {
 
   components: {
@@ -40,17 +43,35 @@ export default {
     const { isDesktop } = useDevice();
     return { isDesktop };
   },
+  data(){
+    return {
+      videos:""
+    }
+  },
 
     computed:{
         ...mapState({
-          listvideos:'videos',
+          listcategories:'categories',
         }), 
       },
 
          mounted(){
-            this.$store.dispatch('get_videos');
+          this.$store.dispatch('get_categories');
           }, 
+
+           methods:{
+            getCategorieVideo(id_categorie){
+              Api.get('/streamvod/rest/videos/'+id_categorie+'/videos')
+              .then((response) => {
+                this.videos = response.data.content
+                console.log(this.videos)  
+              })
+            }
+           }
 };
 </script>
 <style>
+ .btn-order1{
+    background-color: #07693A;
+    }
 </style>

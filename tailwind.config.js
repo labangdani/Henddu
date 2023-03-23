@@ -17,6 +17,7 @@ module.exports = {
       fontFamily: {
         netflix: ["Netflix", "Helvetica", "Arial", "sans-serif"],
         netflix_medium: ["Netflix_Medium", "Helvetica", "Arial", "sans-serif"],
+        body: ["Open Sans"],
       },
       animation: {
         "card-hover": "card-hover 300ms forwards",

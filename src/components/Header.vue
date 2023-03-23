@@ -8,19 +8,21 @@
       <div class="flex items-center">
         <mobile-nav class="lg:hidden" />
 
-        <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4 mt-2.5" />
+        <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4" />
 
         <div class="items-center space-x-16 hidden lg:flex lg:ml-12 text-lg font-bold">
+
          <router-link
             v-for="route in routes"
             :to="route.path"
             :key="route.path"
             class="
               hover:text-gray-300
-              text-sm
+              text-lg
               font-netflix_medium
               transition
               duration-300
+              font-bold
             "
             :class="[
               currentRoute.name === route.name
@@ -37,7 +39,7 @@
       <Search />
 
       <button class="btn-order1 rounded-full" type="submit" v-if="this.$store.state.user.id == -1"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button>
-      <!-- <button class="btn-order1 rounded-full" type="submit" v-if="connect==false"><a v-on:click="logout()" class="bold nav-link active">Se connecter</a></button> -->
+      <!-- <button class="btn-order1 rounded-full" type="submit" v-if="connect==false"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button> -->
       <div class="flex items-center space-x-4 justify-end" v-else>
         <label class="text-lg font-bold">Mon compte</label>
         <img src="/src/assets/images/profile.png" alt="Image de profile" v-on:click="toggleDropdown()" ref="btnDropdownRef" class="w-12 shadow-lg border-4 border-white rounded-full" >
@@ -45,11 +47,11 @@
           <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
             Mon compte
           </a>
-          <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
+          <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
             Mes favoris
           </a>
           <div class="h-0 my-2 border border-solid border-t-0 border-slate-800 opacity-25"></div>
-          <a href="" v-on:click="logout()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
+          <a href="" v-on:click="logout()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
             Déconnexion
           </a>
         </div>
@@ -93,7 +95,7 @@ export default {
 
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    this.getInfos()
+    // this.getconnection()
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -114,7 +116,7 @@ export default {
       }
     },
 
-    getInfos(){
+    getconnection(){
       this.user = localStorage.getItem('user');
       if (this.user){
         this.connect = true

@@ -1,6 +1,6 @@
 <template>
-    <div class="bl">
-      <div class="wrapper1">
+  <div class="bl">
+    <div class="wrapper1">
       <section class="form signup">
         <header><div class="img"></div></header>
         <form >
@@ -53,8 +53,8 @@
         <div class="link">Vous n'avez pas de compte ? <router-link to="/signin" class="condition">S'inscrire</router-link></div>
       </section>
     </div>
-    </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import { mapState} from 'vuex'
