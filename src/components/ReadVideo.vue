@@ -7,7 +7,7 @@
                 </div>
                 
 
-                <div class="like-block">
+                <!-- <div class="like-block">
                     <div :class="{colorGreen: likeOk === true}"  @click="likeVideo()">
                         <font-awesome-icon icon="fa-solid fa-thumbs-up" />
                         <span>{{likeTab.length}}</span>
@@ -18,14 +18,15 @@
                     </div>
                     <div @click="favVideo()" :class="{colorGreen: favOk === true}">
                         <font-awesome-icon icon="fa-solid fa-bookmark" />
-                        <!-- <span>{{favVideoTab.length}}</span> -->
                     </div>
-                </div><br>
-                <div class="title-video">{{ title }}</div><br>
-                <div class="description-video">{{ description }}</div>
+                </div> -->
+                <!-- <br> -->
+                <h1 class="py-2.5 text-lg font-bold">{{ title }}</h1>
+                <h1 class="py-2.5 text-lg font-bold">{{ nbVues }}</h1>
+                <p class="text-sm">{{ description }}</p>
                 <br><br>
 
-                <form action="">
+                <!-- <form action="">
                     <div class="cadre-imput-comment">
                         <div class="input-comment">
                             <div class="input-group flex-nowrap">
@@ -38,11 +39,11 @@
                             <button class="btn-order1 rounded-3 me-4" @click="insertComment()">Ajouter un commentaire</button>
                         </div>
                     </div>
-                </form>
+                </form> -->
 
-                <br><br>
+                <!-- <br><br> -->
                 <!-- <p>{{description}}</p> -->
-                <div class="commentaire mt-5" v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
+                <!-- <div class="commentaire mt-5" v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
                     <div class="w-10 rounded-full">
                             <img src="/src/assets/images/profile.png" alt="">
                         <div>
@@ -51,21 +52,22 @@
                         </div>
                     </div>
                     <div class="commentaire-text">{{ comment.content }}</div>
-                    <!-- <div class="appreciation-commentaire">
-                        <p>Like</p>
-                        <p>Reply</p>
-                    </div> -->
-                </div>
+                </div> -->
             </div>
 
             <div class="pr-10 ">
-                <div class="" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
+                <div class="mb-5" @click="reload" v-for="(videoSimilaire, index) in videoSimilaires" :key="index">
                     <router-link class="router-link" :to="'/ReadVideo/'+videoSimilaire.id">
-                        <div >
-                            <div class="col-md-4" style="max-height:150px;">
-                                <img :src="videoSimilaire.image" style="height:150px; width: 100%;" class="skeleton img-fluid rounded-start">
+                        <div class="grid grid-cols-3">
+                            <div class="mr-4">
+                                <img :src="videoSimilaire.image.url" class="rounded-xl w-40 h-32">
+                                <!-- <Image
+                                :src="videoSimilaire.image.url"
+                                :size="185"
+                                class="rounded-xl"
+                                /> -->
                             </div>
-                            <div class="col-md-8" style="max-height:120px;">
+                            <div class="col-span-2">
                                 <div class="card-body">
                                     <h6 class="card-title"><strong>{{ videoSimilaire.title }}</strong></h6>
                                     <p class="smoll-text card-text">{{ videoSimilaire.description }}</p>
@@ -81,13 +83,18 @@
 </template>
 
 <script>
-import {Api} from '../helpers';
-import moment from 'moment'
-
+    import { ref } from "vue";
+    import {Api} from '../helpers';
+    import moment from 'moment';
+    import Image from "./Image.vue";
     moment.locale ('fr');
+    
     export default{
         name:'ReadVideo',
-        // props: ["video"],
+        components:{
+            Image,
+        },
+
         data(){
             return{
                 video: [],
@@ -100,9 +107,18 @@ import moment from 'moment'
                 favVideoTab:[],
                 likeOk:false,
                 favOk:false,
+                nbVues:'',
                 title:'',
             }
         },
+
+        setup() {
+            const container = ref(null);
+            return {
+                container,
+            };
+        },
+
         methods:{
             reload(){
                 location.reload()
@@ -155,6 +171,18 @@ import moment from 'moment'
                     this.favOk = true;
                 }
             },
+
+            incrementViews(video_id) {
+                // appel à l'API pour incrémenter le nombre de vues
+                axios.put('/streamvod/rest/videos/update-vue/', { video_id: this.videoId })
+                    .then(response => {
+                    // mettre à jour le nombre de vues dans l'interface utilisateur
+                    this.views = response.data.views;
+                    })
+                    .catch(error => {
+                    console.log(error);
+                    });
+            }
         },
         
         async mounted(){
@@ -201,8 +229,11 @@ import moment from 'moment'
             this.fav();
             console.log(this.likeOk)
             console.log(this.favOk)
+
+            this.nbVues = this.incrementViews()
         },
     }
+
 </script>
 
 <style>
@@ -261,4 +292,15 @@ import moment from 'moment'
         color: white;
         padding-right: 10px;
     }
+
+    
+.shadow {
+  -webkit-box-shadow: 0px 0px 12px 0px #000000;
+  box-shadow: 0px 0px 12px 0px #000000;
+}
+
+.video-card img {
+  @apply object-cover rounded-md absolute top-0 left-0 w-full h-full;
+}
+
 </style>

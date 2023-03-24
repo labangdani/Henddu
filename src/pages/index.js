@@ -24,7 +24,7 @@ const routes = [
   {
     path: "/readvideo/:id",
     component: ReadVideo,
-    props: { isHeader: true },
+    props: { isHeader: false },
   },
 
   {

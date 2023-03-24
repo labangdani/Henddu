@@ -14,7 +14,7 @@
 
         <div class="pr-10">
             <div class=" block-commentaire col-md-5">
-                <div class="cadre-commentaire"> 
+                <!-- <div class="cadre-commentaire"> 
                     <div class="commentaire">
                         <div class="user-commentaire">
                             <img src="/src/assets/images/profile.png" alt="">
@@ -82,20 +82,20 @@
                     <div class="mt-6 w-full">
                         <input type="text" id="typeText" placeholder="commentaires" class="pt-1 pl-1 w-full bg-black outline-none border-b-2" />
                     </div>                  
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 
     <div class="video pt-10">
-        <div class="flex items-center space-x-2">
+        <!-- <div class="flex items-center space-x-2">
             <circle-button class="p-1">
                 <IconThumbUp class="text-xs" />
             </circle-button>
             <circle-button class="p-1">
                 <IconThumbDown class="text-xs" />
             </circle-button>
-        </div>
+        </div> -->
         <LiveCardVue></LiveCardVue>
     </div>
 </template>

@@ -2,9 +2,10 @@
   <div class="w-full h-full mb-8 ">
     <banner-skeleton v-if="isLoading" />
     <div v-if="!isLoading" class="banner-container relative w-full h-full">
-      <div class="min-w-full min-h-full">
+      <div v-for="(video, index) in videos" :key="index">
+        <div class="min-w-full min-h-full">
         <Image
-          :src="banner.backdrop_path"
+          :src="video.image.url"
           alt="banner"
           class="object-cover w-full h-full"
         />
@@ -19,12 +20,12 @@
         >
           <div class="w-[40%] space-y-6">
             <h1 class="text-3xl font-bold line-clamp-2">
-              {{ banner.title || banner.name }}
+              {{ video.title || video.name }}
             </h1>
 
-            <p class="text-lg line-clamp-4 font-medium">
-              {{ banner.overview }}
-            </p>
+            <!-- <p class="text-lg line-clamp-4 font-medium">
+              {{ video.overview }}
+            </p> -->
 
             <div class="flex items-center space-x-2">
               <Button class="text-black bg-white">
@@ -37,6 +38,7 @@
       </div>
 
       <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +57,7 @@ import Button from "./Button.vue";
 import useQuery from "../hooks/useQuery";
 
 import { setModalActive, setModalData } from "../store";
+import {mapState} from 'vuex';
 
 import { randomIndex } from "../utils";
 import BannerSkeleton from "../skeletons/BannerSkeleton.vue";
@@ -62,6 +65,12 @@ import BannerSkeleton from "../skeletons/BannerSkeleton.vue";
 export default {
   components: { Image, Button, IconPlayFill, BannerSkeleton },
   props: ["type"],
+  data(){
+    return{
+      videos:[],
+      categories:'',
+    }
+  },
   setup({ type }) {
     let queryFn;
 
@@ -108,6 +117,35 @@ export default {
       isError,
     };
   },
+
+  computed:{
+        ...mapState({
+          listcategories:'categories',
+        }), 
+      },
+
+  mounted(){
+    this.categories = this.$store.dispatch('get_categories')
+    console.log(this.$store.dispatch('get_categories'))
+  }, 
+
+  methods:{
+    getBannerVideo(){
+      this.$store.dispatch('get_categories');
+      console.log(this.$store.dispatch('get_categories'))
+      this.$store.dispatch('get_categories').forEach(categorie => {
+        if (categorie.name == 'BanniereContainer'){
+        Api.get('/streamvod/rest/videos/'+categorie.id+'/videos')
+        .then((response) => {
+          this.videos = response.data.content
+          console.log(this.videos)
+        })   
+    }});
+
+    }
+  }
+
+
 };
 </script>
 

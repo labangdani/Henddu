@@ -31,7 +31,7 @@
                 </div>
                 <div class="field input" v-if="connect === 'Phone'">
                   <!-- <input v-model="username" type="text" name="" id="" placeholder="Numero de tel..." > -->
-                  <vue-tel-input v-model="phone" class="tel-input" ></vue-tel-input>
+                  <vue-tel-input v-model="phoneNumber" :default-country="'CM'" :input-options="{placeholder: 'Numero de tel'}" class="tel-input" ></vue-tel-input>
                 </div>
               </transition-group>
               
@@ -66,7 +66,7 @@
         message:'',
         username:'',
         email:'',
-        phone:'',
+        phoneNumber:'',
         password:'',
         show:false,
         connect:'',
@@ -78,6 +78,13 @@
     },
 
     methods:{
+
+      onInput(phone, phoneObject, input) {
+      if (phoneObject?.formatted) {
+        this.phone = phoneObject.formatted
+      }
+      },
+
       connectToEmail(){
         this.connect = 'Email'
       },

@@ -6,8 +6,11 @@
       <div class="grid grid-cols-2 p-5">
         <div>
           <ul class="flex space-x-4 text-sm" >
+            <li >
+              <button class="rounded-full font-bold px-4 py-0.5 bg-[#07693A]" >Tous</button>
+            </li>
             <li v-for="categorie in listcategories" :key="categorie.id">
-              <button class="rounded-full font-bold px-4 py-0.5 bg-[#07693A]" v-on:click="getCategorieVideo(categorie.id)">{{categorie.name}}</button>
+              <button v-if="categorie.name != 'BanniereContainer'" class="rounded-full font-bold px-4 py-0.5 bg-[#07693A]" v-on:click="getCategorieVideo(categorie.id)">{{categorie.name}}</button>
             </li>
           </ul>
         </div>

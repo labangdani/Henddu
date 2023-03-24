@@ -9,39 +9,34 @@
         <mobile-nav class="lg:hidden" />
 
         <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4" />
-
         <div class="items-center space-x-16 hidden lg:flex lg:ml-12 text-lg font-bold">
-
-         <router-link
-            v-for="route in routes"
-            :to="route.path"
-            :key="route.path"
-            class="
-              hover:text-gray-300
-              text-lg
-              font-netflix_medium
-              transition
-              duration-300
-              font-bold
-            "
-            :class="[
-              currentRoute.name === route.name
-                ? 'text-white'
-                : 'text-typography',
-            ]"
-          >
-            {{ route.name }}
+          <router-link
+              v-for="route in routes"
+              :to="route.path"
+              :key="route.path"
+              class="
+                hover:text-gray-300
+                text-lg
+                font-netflix_medium
+                transition
+                duration-300
+                font-bold
+              "
+              :class="[
+                currentRoute.name === route.name
+                  ? 'text-white'
+                  : 'text-typography',
+              ]"
+            >
+              {{ route.name }}
           </router-link>
         </div>
       </div>
-
-
       <Search />
 
       <button class="btn-order1 rounded-full" type="submit" v-if="this.$store.state.user.id == -1"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button>
-      <!-- <button class="btn-order1 rounded-full" type="submit" v-if="connect==false"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button> -->
       <div class="flex items-center space-x-4 justify-end" v-else>
-        <label class="text-lg font-bold">Mon compte</label>
+        <label class="text-lg font-bold capitalize">{{ user.username }}</label>
         <img src="/src/assets/images/profile.png" alt="Image de profile" v-on:click="toggleDropdown()" ref="btnDropdownRef" class="w-12 shadow-lg border-4 border-white rounded-full" >
         <div v-bind:class="{'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow}" class="bg-black text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width:12rem" ref="popoverDropdownRef">
           <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
@@ -95,7 +90,7 @@ export default {
 
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    // this.getconnection()
+    this.getconnection()
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -117,10 +112,13 @@ export default {
     },
 
     getconnection(){
-      this.user = localStorage.getItem('user');
+      this.user = JSON.parse(localStorage.getItem('user'));
       if (this.user){
         this.connect = true
+
       }
+      console.log(this.user)
+
     },
 
     input_show (){
@@ -136,13 +134,13 @@ export default {
       this.$router.push ('/login')
     },
 
-    verifie_connection(){
-      console.log(this.$store.state.user)
-      if (this.$store.state.user.id == -1){
-        this.message_error = 'non connecté'
-          this.$router.push ('/')
-      }
-    },
+    // verifie_connection(){
+    //   console.log(this.$store.state.user)
+    //   if (this.$store.state.user.id == -1){
+    //     this.message_error = 'non connecté'
+    //       this.$router.push ('/')
+    //   }
+    // },
 
  
   },
