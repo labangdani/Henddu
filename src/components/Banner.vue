@@ -1,50 +1,82 @@
 <template>
-  <div class="w-full h-full mb-8 ">
+
+  <div class="mb-8">
     <banner-skeleton v-if="isLoading" />
-    <div v-if="!isLoading" class="banner-container relative w-full h-full">
-      <div v-for="(video, index) in videos" :key="index">
-        <div class="min-w-full min-h-full">
-        <Image
-          :src="video.image.url"
-          alt="banner"
-          class="object-cover w-full h-full"
-        />
+    <div v-if="!isLoading" class="banner-container relative">
+      <div v-if="this.$store.state.user.id == -1">
+        <div class="">
+          <img
+            src="../assets/images/CcommentPlateau.jpg"
+            class="w-full h-[750px] object-cover"
+          />
+        </div>
+
+        <div class="banner__overlay absolute inset-0 flex items-center px-20">
+          <transition
+            appear
+            enter-active-class="animate__animated animate__slideInUp"
+            leave-active-class="animate__animated animate__slideInDown"
+            mode="out-in"
+          >
+            <div class="w-[50%] space-y-6">
+              <h1 class="text-8xl font-serif line-clamp-2">
+              Welcome
+              </h1> 
+            </div>
+          </transition>
+        </div>
       </div>
 
-      <div class="banner__overlay absolute inset-0 flex items-center px-12">
-        <transition
-          appear
-          enter-active-class="animate__animated animate__slideInUp"
-          leave-active-class="animate__animated animate__slideInDown"
-          mode="out-in"
-        >
-          <div class="w-[40%] space-y-6">
-            <h1 class="text-3xl font-bold line-clamp-2">
-              {{ video.title || video.name }}
-            </h1>
+      <div v-else>
+        <div v-for="(video, index) in videos" :key="index">
+          <div v-if="isVisible==false">
+            <img
+            :src=video.image.url
+            class="object-cover h-[750px] w-full"
+          />
+          <div class="banner__overlay h-full w-full absolute inset-0 flex items-center px-20">
+            <transition
+              appear
+              enter-active-class="animate__animated animate__slideInUp"
+              leave-active-class="animate__animated animate__slideInDown"
+              mode="out-in"
+            >
+              <div class="w-[80%] space-y-6">
+                <div class="text-8xl body">
+                  {{ video.title || video.name }}
+                </div>
 
-            <!-- <p class="text-lg line-clamp-4 font-medium">
-              {{ video.overview }}
-            </p> -->
+                <!-- <p class="text-lg line-clamp-4 font-medium">
+                  {{ video.overview }}
+                </p> -->
 
-            <div class="flex items-center space-x-2">
-              <Button class="text-black bg-white">
-                <IconPlayFill />
-                <p class="text-bold">Play</p>
-              </Button>
-            </div>
+                <div class="flex items-center">
+                  <Button class="bg-white text-black" v-on:click="getVisibility(video.id)" >
+                    <IconPlayFill />
+                    <p class="text-bold">Play</p>
+                  </Button>
+                </div>
+              </div>
+            </transition>
           </div>
-        </transition>
+          </div>
+
+          <video  v-else class="w-full h-[750px] object-cover" ref="videoPlayer" autoplay loop controls></video>
+
+        </div>
       </div>
 
       <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
-      </div>
+
+      
     </div>
   </div>
+      
 </template>
 
 <script>
 import { computed } from "vue";
+import { ref } from "vue";
 
 import IconPlayFill from "~icons/ph/play-fill";
 
@@ -57,18 +89,20 @@ import Button from "./Button.vue";
 import useQuery from "../hooks/useQuery";
 
 import { setModalActive, setModalData } from "../store";
-import {mapState} from 'vuex';
+import {Api} from '../helpers'
 
 import { randomIndex } from "../utils";
 import BannerSkeleton from "../skeletons/BannerSkeleton.vue";
 
 export default {
   components: { Image, Button, IconPlayFill, BannerSkeleton },
-  props: ["type"],
+  // props: ["type"],
   data(){
     return{
       videos:[],
-      categories:'',
+      user:'',
+      isVisible:false,
+      video:{}
     }
   },
   setup({ type }) {
@@ -118,35 +152,53 @@ export default {
     };
   },
 
-  computed:{
-        ...mapState({
-          listcategories:'categories',
-        }), 
-      },
-
   mounted(){
-    this.categories = this.$store.dispatch('get_categories')
-    console.log(this.$store.dispatch('get_categories'))
+    this.user = JSON.parse(localStorage.getItem('user'));
+    if(this.user){
+      this.getBannerVideo();
+    }
+               
   }, 
 
   methods:{
     getBannerVideo(){
-      this.$store.dispatch('get_categories');
-      console.log(this.$store.dispatch('get_categories'))
-      this.$store.dispatch('get_categories').forEach(categorie => {
-        if (categorie.name == 'BanniereContainer'){
-        Api.get('/streamvod/rest/videos/'+categorie.id+'/videos')
+        Api.get('/streamvod/rest/videos/76/videos')
         .then((response) => {
           this.videos = response.data.content
           console.log(this.videos)
         })   
-    }});
+      },
 
+  //  async readVideo(video_id){
+  //   //*********** VIDEOS EN LECTURE ***************
+  //     const result = await Api.get('/streamvod/rest/videos/'+video_id)
+  //     this.video=result.data.content
+  //     console.log(this.video)
+  //     this.$refs.videoPlayer.src = this.video.url
+  //     console.log(this.$refs.videoPlayer.src)
+
+  //   },
+  
+    async getVisibility(video_id){
+      this.isVisible=true
+      console.log(video_id)
+
+      Api.get('/streamvod/rest/videos/'+video_id)
+      .then((response) => {
+        this.video = response.data.content
+        console.log(this.video)
+        this.$refs.videoPlayer.src = this.video.url
+        console.log(this.$refs.videoPlayer.src)
+        })   
+     
+      
     }
-  }
+    
+    }
 
 
-};
+  };
+  
 </script>
 
 <style>

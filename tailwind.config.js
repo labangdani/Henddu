@@ -18,6 +18,7 @@ module.exports = {
         netflix: ["Netflix", "Helvetica", "Arial", "sans-serif"],
         netflix_medium: ["Netflix_Medium", "Helvetica", "Arial", "sans-serif"],
         body: ["Open Sans"],
+        apple: ["-apple-system"]
       },
       animation: {
         "card-hover": "card-hover 300ms forwards",
@@ -86,4 +87,11 @@ module.exports = {
     extend: {},
   },
   plugins: [require("@tailwindcss/line-clamp")],
+
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx;tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
+  ],
+  plugins: [require("tw-elements/dist/plugin")]
 };

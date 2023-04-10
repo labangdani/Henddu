@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-  <Header v-if="$route.path != '/login' && $route.path !='/signin'" />
+  <Header v-if="$route.path != '/login' && $route.path !='/signin' && $route.path != '/user/profile'" />
   <div
     class="min-h-screen"
     :style="[isModalActive && `margin-top: -${scrollTop}px`]"

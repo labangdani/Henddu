@@ -5,26 +5,52 @@
                 <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;" itemscope itemtype="https://schema.org/VideoObject">
                     <video class="w-full shadow-lg" ref="videoPlayer" autoplay loop controls muted></video>
                 </div>
-                
 
-                <!-- <div class="like-block">
-                    <div :class="{colorGreen: likeOk === true}"  @click="likeVideo()">
-                        <font-awesome-icon icon="fa-solid fa-thumbs-up" />
-                        <span>{{likeTab.length}}</span>
+                <h1 class="py-2.5 text-2xl text-white">{{ title }}</h1>
+                <div class="h-0 mb-2.5 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+                <div class="flex justify-between mb-2.5 px-2.5">
+                    <div class="flex justify-center space-x-2" @click="likeVideo()"><svg class="h-6 w-6" :class="{colorGreen: islike === true }" viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" /></svg><p>{{ likeTab.length }}</p></div>
+                    <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" /></svg></div>
+                    <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg><p>{{ commentTab.length }}</p></div>
+                    <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="18" cy="5" r="3" />  <circle cx="6" cy="12" r="3" />  <circle cx="18" cy="19" r="3" />  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg></div>
+                    <div class="flex space-x-2" @click="favVideo()"><svg class="h-6 w-6" :class="{colorGreen: isfav === true }"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg></div>
+                </div>
+                <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+                <div class="text-lg capitalize bg-gray-700 rounded-lg p-2.5">{{ views }} vues<br>{{ description }}</div>
+                <!-- <br><br> -->
+
+                <form class="mt-8">    
+                    <div class="flex space-x-3 mb-4">
+                        <img class="mb-0 h-10 w-10 rounded-full" :src=user.image.url />
+                        <input type="text" v-model="content_comment" class="text-white border-b-2 bg-transparent text-md block w-full py-1.5" placeholder="Ajouter un commentaire" />
                     </div>
-                    <div>
-                        <font-awesome-icon icon="fa-solid fa-message" />
-                        <span>{{commentTab.length}}</span>
+                    <div class="flex justify-end mb-4 space-x-4">
+                        <button class="border-b-2">Annuler</button>
+                        <button class="bg-[#07693A] p-2.5 rounded-2xl" @click="insertComment()">Ajouter un commentaire</button>
                     </div>
-                    <div @click="favVideo()" :class="{colorGreen: favOk === true}">
-                        <font-awesome-icon icon="fa-solid fa-bookmark" />
+                </form>
+
+                <div class="h-0 mb-7 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+
+                <div v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
+                    <div class="flex space-x-4 mb-7">
+                        <img class="mb-0 h-10 w-10 rounded-full" :src=comment.user_photo />
+                        <div>
+                            <div class="flex space-x-4">
+                                <h1 class="font-bold">@{{ comment.user }}</h1>
+                                <p class="text-sm mt-1">{{ moment(comment.createdAt).fromNow() }}</p>
+                            </div>
+                            <p class="text-gray-400">{{comment.content}}</p>
+                        </div>
                     </div>
-                </div> -->
-                <!-- <br> -->
-                <h1 class="py-2.5 text-lg font-bold">{{ title }}</h1>
-                <h1 class="py-2.5 text-lg font-bold">{{ nbVues }}</h1>
-                <p class="text-sm">{{ description }}</p>
-                <br><br>
+                    <!-- <div class="flex space-x-4 mb-7">
+                        <img class="mb-0 h-10 w-10 rounded-full" :src=user.image.url />
+                        <div>
+                            <h1 class="font-bold">@{{ user.username }}</h1>
+                            <p class="text-gray-400">super</p>
+                        </div>
+                    </div> -->
+                </div>
 
                 <!-- <form action="">
                     <div class="cadre-imput-comment">
@@ -105,10 +131,20 @@
                 moment:moment,
                 likeTab:[],
                 favVideoTab:[],
-                likeOk:false,
-                favOk:false,
-                nbVues:'',
+                views:'',
                 title:'',
+                islike:false,
+                isfav:false,
+                user:{
+                name:'',
+                image:{
+                url:''
+                },
+                username:'',
+                surname:'',
+                telephone:'',
+                email:'',
+            }
             }
         },
 
@@ -123,61 +159,68 @@
             reload(){
                 location.reload()
             },
+
             insertComment() {
-                let token  = localStorage.getItem("jwtToken");
                 Api.post('/streamvod/rest/comments/create/' + this.$route.params.id,
-                {content:this.content_comment}, 
-                {
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token,
-                    }
-                })
-                .then(function (response) {
-                    console.log(response)
-                    location.reload()
-                    // self.$router.push('/ReadVideo/' + this.id)
+                {content:this.content_comment})
+                .then( response => {
+                    console.log(response.data.content);
+                    this.commentTab.push(response.data.content.content); 
                 }).catch(function(error) {
                     console.log(error);
                 })
             },
+
             likeVideo() {
-                Api.put('/streamvod/rest/likes/' + this.$route.params.id,
-                {content:this.content_comment})
-                .then(function (response) {
-                    console.log(response)
-                    location.reload()
-                }).catch(function(error) {
+                Api.put('/streamvod/rest/likes/' + this.$route.params.id)
+                .then(response => {
+                    // mettre à jour le nombre de vues dans l'interface utilisateur
+                    console.log(response.data.content.likedUsers);
+                    this.likeTab = response.data.content.likedUsers;
+                   this.like()
+
+                    }).catch(function(error) {
                     console.log(error);
                 })
             },
+
             favVideo() {
-                Api.put('/streamvod/rest/fav/' + this.$route.params.id,
-                {content:this.content_comment})
-                .then(function (response) {
-                    console.log(response)
-                    location.reload()
-                }).catch(function(error) {
+                Api.put('/streamvod/rest/fav/' + this.$route.params.id)
+                .then(response => {
+                    // mettre à jour le nombre de vues dans l'interface utilisateur
+                    console.log(response.data.content.favUsers);
+                    this.favVideoTab = response.data.content.favUsers;
+                    this.fav()
+                    }).catch(function(error) {
                     console.log(error);
                 })
             },
+
             like(){
                 if (this.likeTab.includes(this.$store.state.user.username)){
-                    this.likeOk = true;
-                }
+                    this.islike = true;
+                    }
+                else{
+                    this.islike = false;
+                }  
             },
+
             fav(){
                 if (this.favVideoTab.includes(this.$store.state.user.username)){
-                    this.favOk = true;
+                    this.isfav = true;
+                    }
+                else{
+                    this.isfav = false;
                 }
             },
 
-            incrementViews(video_id) {
+            incrementViews() {
                 // appel à l'API pour incrémenter le nombre de vues
-                axios.put('/streamvod/rest/videos/update-vue/', { video_id: this.videoId })
+                Api.put('/streamvod/rest/videos/update-vue/' + this.$route.params.id)
                     .then(response => {
                     // mettre à jour le nombre de vues dans l'interface utilisateur
-                    this.views = response.data.views;
+                    console.log(response.data.content.nbVues);
+                    this.views = response.data.content.nbVues
                     })
                     .catch(error => {
                     console.log(error);
@@ -186,10 +229,8 @@
         },
         
         async mounted(){
-            
-            console.log(this.$store.state.user)
             console.log(this.$store.state.user.username)
-            
+            this.user = JSON.parse(localStorage.getItem('user'));
             if (this.$store.state.user.id == -1){
                 this.$router.push ('/')
             }
@@ -204,7 +245,6 @@
             console.log(this.video)
             this.$refs.videoPlayer.src = this.video.url
             console.log(this.$refs.videoPlayer.src)
-
 
             this.description = this.video.description
             this.title = this.video.title
@@ -227,10 +267,8 @@
 
             this.like();
             this.fav();
-            console.log(this.likeOk)
-            console.log(this.favOk)
 
-            this.nbVues = this.incrementViews()
+            this.incrementViews()
         },
     }
 
@@ -276,7 +314,7 @@
         float: right;
     }
     .colorGreen{
-        color: #07693A;
+        color: #07693A; 
     }
     .text-white .router-link{
         color: white;

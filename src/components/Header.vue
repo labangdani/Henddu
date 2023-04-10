@@ -7,61 +7,77 @@
     <div class="relative z-10 flex items-center justify-between w-full h-full p-5 px-4 md:px-12">
       <div class="flex items-center">
         <mobile-nav class="lg:hidden" />
-
-        <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4" />
-        <div class="items-center space-x-16 hidden lg:flex lg:ml-12 text-lg font-bold">
-          <router-link
-              v-for="route in routes"
+        <router-link to="/">
+          <img :src="logo" alt="logo" class="h-full w-28 object-cover ml-4"/>
+        </router-link>        
+        <div class="items-center space-x-16 hidden lg:flex lg:ml-12 text-lg font-bold"
+         v-if="this.$store.state.user.id != -1">
+          <div v-for="route in routes"
+            :key="route.path"
+            :class="{menuclass: currentRoute.name === route.name} ">
+            <router-link
               :to="route.path"
-              :key="route.path"
-              class="
-                hover:text-gray-300
-                text-lg
-                font-netflix_medium
-                transition
-                duration-300
-                font-bold
-              "
-              :class="[
-                currentRoute.name === route.name
-                  ? 'text-white'
-                  : 'text-typography',
-              ]"
+              role="presentation"
+            
+              aria-selected="false"
+              v-on:click="get_menu(route.name)"
             >
-              {{ route.name }}
-          </router-link>
+                {{ route.name }}
+            </router-link>
+          </div>
+          
         </div>
       </div>
-      <Search />
+      <Search v-if="this.$store.state.user.id != -1" />
+
+
+<!-- <form class="flex items-center" v-if="this.$store.state.user.id != -1">   
+    <div class="relative w-full">
+        <input type="text" id="simple-search" class="text-white placeholder-white bg-transparent text-lg rounded-lg block w-full mx-20 p-3 py-1.5" placeholder="Rechercher un programme, une vidéo..." required>
+    </div>
+    <button type="submit" class="pl-10">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <span class="sr-only">Search</span>
+    </button>
+</form> -->
+
 
       <button class="btn-order1 rounded-full" type="submit" v-if="this.$store.state.user.id == -1"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button>
       <div class="flex items-center space-x-4 justify-end" v-else>
-        <label class="text-lg font-bold capitalize">{{ user.username }}</label>
-        <img src="/src/assets/images/profile.png" alt="Image de profile" v-on:click="toggleDropdown()" ref="btnDropdownRef" class="w-12 shadow-lg border-4 border-white rounded-full" >
+        <router-link to="/user/profile">
+          <label class="text-lg font-bold capitalize">{{ user.username }}</label>
+        </router-link>
+        <div>
+          <img class="h-12 w-12 mt-1 rounded-full" :src= user.image.url alt="Image de profile" v-on:click="toggleDropdown()" ref="btnDropdownRef" />  
+        </div>
+       
         <div v-bind:class="{'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow}" class="bg-black text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width:12rem" ref="popoverDropdownRef">
-          <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
+          <router-link to="/user/profile" class="text-sm hover:bg-gray-800 py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
             Mon compte
-          </a>
-          <a href="#pablo" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
+          </router-link>
+          <a href="#" class="text-sm py-2 px-4 hover:bg-gray-800 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
             Mes favoris
           </a>
           <div class="h-0 my-2 border border-solid border-t-0 border-slate-800 opacity-25"></div>
-          <a href="" v-on:click="logout()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
+          <a href="" v-on:click="logout()" class="text-sm hover:bg-gray-800 py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
             Déconnexion
           </a>
         </div>
-        </div>
+      </div>
     </div>
   </div>
+
 </template>
 <script>
 import useHeaderRoute from "../hooks/useHeaderRoute";
 import Search from "./Search.vue";
+import Image from "../components/Image.vue";
 import logo from "../assets/logo.png";
 import MobileNav from "./MobileNav.vue";
 import { ref, watch } from 'vue';
 import { mapState} from 'vuex';
 import { createPopper } from "@popperjs/core";
+import CircleButton from './CircleButton.vue';
 
 
 export default {
@@ -69,16 +85,28 @@ export default {
   components: {
     Search,
     MobileNav,
+    Image,
+    CircleButton,
   },
 
   data() {
-    return { logo,
-            message_error:'',
-            input:'',
-            connect:false,
-            user:'',
-            dropdownPopoverShow: false
-
+    return { 
+      logo,
+      message_error:'',
+      input:'',
+      connect:false,
+      user:{
+        name:'',
+        image:{
+          url:''
+        },
+        username:'',
+        surname:'',
+        telephone:'',
+        email:'',
+      },
+      dropdownPopoverShow: false,
+      menu:''
     }
   },
 
@@ -100,7 +128,7 @@ export default {
       this.isTop = window.scrollY === 0;
     },
 
-    toggleDropdown: function(){
+    toggleDropdown(){
       if(this.dropdownPopoverShow){
         this.dropdownPopoverShow = false;
       } else {
@@ -115,51 +143,46 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'));
       if (this.user){
         this.connect = true
-
       }
       console.log(this.user)
-
     },
 
     input_show (){
       this.input = 'ok'
       this.$store.dispatch('get_videos');
     },
+
     input_dismiss(){
       this.input = ''
+    },
+    
+    get_menu(){
+      this.menu = 'Programm';
     },
 
     logout(){
       this.$store.commit('logout')
-      this.$router.push ('/login')
     },
 
-    // verifie_connection(){
-    //   console.log(this.$store.state.user)
-    //   if (this.$store.state.user.id == -1){
-    //     this.message_error = 'non connecté'
-    //       this.$router.push ('/')
-    //   }
-    // },
-
- 
+    home(){
+      this.$router.push ('/')
+    },
   },
 
-   setup(){
+  setup(){
     const { currentRoute, routes } = useHeaderRoute(); 
     const isTop = ref(true);
     let user_search_movies = ref('');
     watch(user_search_movies, (newValue) => {
       this.$store.dispatch('get_videos');
-
       console.log(newValue);
     })
 
     return{
-          currentRoute,
-          routes,
-          isTop,
-          user_search_movies,
+      currentRoute,
+      routes,
+      isTop,
+      user_search_movies,
     }
   }
 
@@ -205,11 +228,15 @@ export default {
       transform: scale(1.1);
     }
 
-    .profile-img{
+    /* .profile-img{
       height: 40px;
       width: 40px;
       border-radius: 50%;
       margin-right: 150px;
+    } */
+
+    .menuclass{
+      @apply inline-block focus:text-gray-300 focus:border-gray-300 border-b-4 text-lg font-netflix_medium transition duration-300 font-bold;
     }
 
 

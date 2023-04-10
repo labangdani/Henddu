@@ -24,8 +24,23 @@ export const Api = {
         return axios.get(serverUrl + route)
     },
 
-    post(route, data, config) {
+    postwithouttoken(route, data) {
        
+        return axios.post(serverUrl + route, data)
+    },
+
+    post(route, data, config) {
+        const user = JSON.parse(localStorage.getItem("user"))
+        const token = user.token
+        if (token) {
+            if (!config)
+                config = {}
+            if (!config.headers)
+                config.headers = {}
+    
+            config.headers.Authorization = `Bearer ${token}`
+        }
+
         return axios.post(serverUrl + route, data, config)
     },
 

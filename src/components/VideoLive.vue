@@ -10,6 +10,17 @@
                     <iframe src="https://www.dailymotion.com/embed/video/x7v9nKy?autoplay=1" frameborder="0" style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;" width="720" height="480" allowfullscreen allow="autoplay" type="text/html"></iframe>
                 </div>
             </div>
+            <h1 class="py-2.5 text-2xl text-white">{{ title }}</h1>
+            <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+            <div class="flex justify-between mb-4">
+                <div class="flex space-x-2"><svg class="h-8 w-8 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" /></svg><p>bonjour</p></div>
+                <div class="flex space-x-2"><svg class="h-8 w-8 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" /></svg><p>bonjour</p></div>
+                <div class="flex space-x-2"><svg class="h-8 w-8 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg><p>bonjour</p></div>
+                <div class="flex space-x-2"><svg class="h-8 w-8 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="18" cy="5" r="3" />  <circle cx="6" cy="12" r="3" />  <circle cx="18" cy="19" r="3" />  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg><p>bonjour</p></div>
+                <div class="flex space-x-2"><svg class="h-8 w-8 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg><p>bonjour</p></div>
+            </div>
+            <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
+            <div class="text-lg capitalize bg-gray-700 rounded-lg p-2.5">{{ description }}</div>
         </div>
 
         <div class="pr-10">
@@ -88,14 +99,6 @@
     </div>
 
     <div class="video pt-10">
-        <!-- <div class="flex items-center space-x-2">
-            <circle-button class="p-1">
-                <IconThumbUp class="text-xs" />
-            </circle-button>
-            <circle-button class="p-1">
-                <IconThumbDown class="text-xs" />
-            </circle-button>
-        </div> -->
         <LiveCardVue></LiveCardVue>
     </div>
 </template>

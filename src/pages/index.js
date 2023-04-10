@@ -3,12 +3,12 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import FormSignUp from '/src/components/Forms/FormSignUp.vue';
 import ReadVideo from '/src/components/ReadVideo.vue';
 
-
 const BrowsePage = () => import("./BrowsePage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
 const ReplayPage = () => import("./ReplayPage/index.vue");
 const DirectPage = () => import("./DirectPage/index.vue");
 const LoginPage = () => import("./LoginPage/index.vue");
+const UserProfilePage = () => import("./UserProfilePage/index.vue");
 
 const routes = [
   {
@@ -53,6 +53,13 @@ const routes = [
     component: BrowsePage,
     name: "Stream",
     props: { isHeader: true },
+  },
+
+  {
+    path: "/user/profile",
+    component: UserProfilePage,
+    name: "UserProfile",
+    props: { isHeader: false },
   },
 
   {

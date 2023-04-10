@@ -1,12 +1,12 @@
 <template>
   <div class="w-full h-full md:pb-44">
-    <Banner :type="type" v-if="isDesktop" />
+    <Banner v-if="isDesktop" />
   
-    <div class="px-20" v-if="connected==false">
-      <SectionContainer :getstreams="listimages" />
+    <div class="px-20" v-if="this.$store.state.user.id == -1">
+      <SectionContainer :getstreams="listimages"/>
     </div>
     <div class="px-20" v-else>
-      <SectionContainer :sections="listsections" />
+      <SectionContainer :sections="listsections"/>
     </div>
   </div>
 </template>
@@ -44,18 +44,17 @@ export default {
       },
 
     mounted(){
-
-      if(localStorage.getItem('user')){
-        this.connected = true
-        this.$store.dispatch('get_sections');  
-        console.log("bingo")
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if(this.user){
+        this.$store.dispatch('get_sections');
+        console.log("connect")
       }
       else{
-        this.$store.dispatch('get_getstreams');      
-        console.log("failed")
+        this.$store.dispatch('get_getstreams'); 
+        console.log("not connect")
       }
+          
     }, 
-
 };
 </script>
 <style>

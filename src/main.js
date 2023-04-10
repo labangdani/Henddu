@@ -9,7 +9,7 @@ import 'vue3-tel-input/dist/vue3-tel-input.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-
+import * as te from 'tw-elements';
 
 import "./index.css";
 
@@ -23,6 +23,7 @@ createApp({
 .component('fa', FontAwesomeIcon)
   .use(router)
   .use(store)
+  .use(te)
   .use(VueTelInput)
   .use(VueLazyload, {
     observer: true,

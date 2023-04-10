@@ -85,7 +85,7 @@ const store = createStore({
           comments: []
       },
 
-      images:{
+      image:{
         id:'',
         name:'',
         size:'',
@@ -105,6 +105,18 @@ const store = createStore({
         description:'',
         titre:'',
         images:[],
+      },
+
+      planifications:{
+        id:'',
+        startDate:'',
+        endDate:'',
+        programme:{
+            image:{
+                url:''
+            }
+        },
+        channels:[],
       }
   },
   mutations: {
@@ -122,23 +134,29 @@ const store = createStore({
         state.videos = videos
     },
     sections: function (state, sections){
-    state.sections = sections
+        state.sections = sections
     },
     categories: function (state, categories){
-    state.categories = categories
+        state.categories = categories
     },
     getstreams: function (state, getstreams){
         state.getstreams = getstreams
-        },
+    },
+    planifications: function (state, planifications){
+        state.planifications = planifications
+    },
     images: function (state, images){
-        state.images = images
-        },
+        state.image = images
+    },
     logout:function(state){
         state.user = {
             id: -1,
             token:'',
         }
         localStorage.removeItem('user')
+        localStorage.removeItem('jwtToken')
+        this.$router.push ('/')
+        
     }
   },
   actions:{
@@ -146,19 +164,19 @@ const store = createStore({
       // ************ACTION LOGIN****************
 
       loginToEmail:({commit}, userInfos) =>{
-          commit('setStatus','loading');
-          return new Promise((resolve, reject) => {
-            Api.post('/authentication/api/auth/signin-email',userInfos)
-              .then(function (response) {
-                  commit('setStatus','');
-                  commit('logUser',response.data);
-                  resolve(response);
-                  console.log(user.token)
-              }).catch(function(error) {
-                  commit('setStatus','error_login');
-                  reject(error);
-              })
-          });
+        commit('setStatus','loading');
+        return new Promise((resolve, reject) => {
+        Api.postwithouttoken('/authentication/api/auth/signin-email',userInfos)
+            .then(function (response) {
+                commit('setStatus','');
+                commit('logUser',response.data);
+                resolve(response);
+                console.log(user.token)
+            }).catch(function(error) {
+                commit('setStatus','error_login');
+                reject(error);
+            })
+        });
       },
 
       
@@ -166,7 +184,7 @@ const store = createStore({
       loginToPhone:({commit}, userInfos) =>{
           commit('setStatus','loading');
           return new Promise((resolve, reject) => {
-            Api.post('/authentication/api/auth/signin-phone',userInfos)
+            Api.postwithouttoken('/authentication/api/auth/signin-phone',userInfos)
               .then(function (response) {
                   commit('setStatus','');
                   commit('logUser',response.data);
@@ -181,7 +199,7 @@ const store = createStore({
       loginToUsername:({commit}, userInfos) =>{
           commit('setStatus','loading');
           return new Promise((resolve, reject) => {
-              Api.post('/authentication/api/auth/signin-username',userInfos)
+              Api.postwithouttoken('/authentication/api/auth/signin-username',userInfos)
               .then(function (response) {
                   commit('setStatus','');
                   commit('logUser',response.data);
@@ -275,6 +293,16 @@ const store = createStore({
         Api.get('/streamvod/rest/section/all')
         .then(function (response) {
             commit('sections',response.data.content);
+            console.log(response.data.content);
+        }).catch(function(err) {
+            console.log(err);
+        })
+    },
+
+      get_planifications:({commit})=>{
+        Api.get('/streamvod/rest/planification/all')
+        .then(function (response) {
+            commit('planifications',response.data.content);
             console.log(response.data.content);
         }).catch(function(err) {
             console.log(err);

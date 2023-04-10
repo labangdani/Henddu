@@ -2,14 +2,14 @@
   <video-carousel-skeleton v-if="isLoading" />
 
   <div v-else>
-    <div v-if="connected==false">
-      <h1 class="text-4xl font-light font-sans mb-7">
+    <div v-if="this.$store.state.user.id == -1">
+      <h1 class="text-3xl font-light font-sans mb-7">
         {{ getstream.titre }} 
       </h1>
       <video-carousel :images="getstream.images" />
     </div>
     <div v-else>
-      <h1 class="text-4xl font-light font-sans mb-7">
+      <h1 class="text-3xl font-light font-sans mb-7">
         {{ section.titre }} 
       </h1>
       <video-carousel :videos="section.videos" />
@@ -18,15 +18,14 @@
 </template>
 
 <script>
-// import useQuery from "../hooks/useQuery";
 import VideoCarouselSkeleton from "../skeletons/VideoCarouselSkeleton.vue";
 import VideoCarousel from "./VideoCarousel.vue";
 
 export default {
   props: ["getstream","section"],
   components: {
-    VideoCarousel,
     VideoCarouselSkeleton,
+    VideoCarousel,
   },
 
   data() {
