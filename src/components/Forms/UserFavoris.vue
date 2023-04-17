@@ -1,6 +1,19 @@
 <template>
-  <section class="p-20">
-    <h1 class="text-4xl font-light font-sans"> Résultat de mes vidéos</h1>
+  <div class="w-full">
+    <video-carousel-skeleton v-if="isLoading" />
+    <div class="" v-else>
+      <div class="grid grid-cols-2 pb-5 pt-2">
+        <div>
+          <ul class="flex space-x-8" >
+            <li >
+              <a :class="{buttonclass: connect === 'programmes' || connect === ''}"  v-on:click="getProgrammeUser()" ><button class="uppercase text-sm text-white rounded-full font-bold ">Mes Programmes</button></a>
+            </li>
+            <li >
+              <a :class="{buttonclass: connect === 'videos'}" v-on:click="getVideosUser()" ><button class="uppercase text-sm text-white font-bold">Mes Videos</button></a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
       
     <div
@@ -15,7 +28,7 @@
         </div>
         <div class="flex mt-2.5 text-lg font-bold justify-center text-center">{{video.title}}</div>
       </div>
-      <template>
+      <!-- <template>
         <div
           class="
             swiper-button swiper-button-prev
@@ -42,30 +55,26 @@
         >
           <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
         </div>
-      </template>
+      </template> -->
     </div>
     </div>
-  </section>
+    </div>
+  </div>
 </template>
 
 <script>
 import VideoCard from "../../components/VideoCard.vue";
-import { useRoute } from "vue-router";
 import VideoCarouselSkeleton from "../../skeletons/VideoCarouselSkeleton.vue";
-import { Api } from "../../helpers";
 import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
 import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
-// import useDevice from "../../hooks/useDevice";
+import useDevice from "../../hooks/useDevice";
+import {mapState} from 'vuex';
+import {Api} from '../../helpers';
+
 
 export default {
-
-  data(){
-    return{
-      listvideos:{},
-    }
-  },
 
   components: {
     VideoCard,
@@ -76,39 +85,43 @@ export default {
     IconArrowLeft,
   },
 
-  mounted(){
-    const route = useRoute()
-    this.getVideoKeyWord(route)
+  setup() {
+    const { isDesktop } = useDevice();
+    return {
+      isDesktop,
+    };
   },
 
+  data(){
+    return {
+      listvideos:"",
+      connect:""
+    }
+  },
+
+  mounted(){
+  
+  }, 
+
   methods:{
-    getVideoKeyWord(route){
-      Api.get('/streamvod/rest/videos/search-kw?search=' + route.query.q)
+
+    getProgrammeUser(){
+      this.connect = 'programmes'
+      
+    },
+
+    getVideosUser(){
+      this.connect = 'videos';
+      Api.get('/streamvod/rest/fav/videos/all')
       .then((response) => {
         console.log(response.data.content); 
         this.listvideos = response.data.content;
       })
-    }
-  },
+     
+    },
 
-  // setup() {
-  //   const route = useRoute();
-  //   const { isDesktop } = useDevice();
+  }
 
-  //   Api.get('/streamvod/rest/videos/search-kw?search=' + route.query.q)
-  //   .then((response) => {
-  //     this.listvideos = response.data.content
-  //     console.log(this.listvideos)
-  //   }).catch({
-
-  //   })
-  
-  //   return {
-  //     isDesktop,
-  //   };
-  // },
-
- 
 };
 </script>
 <style>
@@ -119,19 +132,6 @@ export default {
     background-color: #07693A;
     }
 
-  .block-chaine{
-    display: grid;
-    grid-auto-flow: column;
-    /* grid-auto-columns: 10%;  */
-    gap: var(--size-3);
-    overflow: auto;
-    scroll-behavior: none; 
-    width: 100%;
-  }
-
-  .block-chaine::-webkit-scrollbar{
-    width: 0;
-  }
 
   .buttonclass{
     /* background-color: #fff; */

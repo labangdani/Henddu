@@ -1,100 +1,238 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <div>
-      <h5 class="title">Edit Profile</h5>
-      <div class="row">
-        <div class="col-md-5 pr-md-1">
-          <input
-            label="Company (disabled)"
-            placeholder="Company"
-            v-model="model.company"
-            disabled
-          >
+   <div class="w-full">
+        <div class="grid grid-cols-3 space-x-6">
+            <div class="grid grid-rows-2 shadow">
+                <img :src="profileImageURL" class="rounded-t-lg" alt="Image de profil">
+                <div class="bg-white rounded-b-lg">
+                    <div class="flex justify-center -mt-10">
+                        <img :src="profileImageURL" class="w-28 border-4  h-28 mb-4 rounded-full" alt="Image de profil">
+                        <form>
+                            <input ref="imageprofile" class="hidden" type="file" accept="image/jpeg, image/png" @change="onImageSelect">
+                            <svg class="h-6 w-6 text-black mt-20" type="file" @click="callref" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </form>
+                    </div>  
+                    <p class="text-black body flex justify-center font-bold mt-5 capitalize text-xl">{{ username }}</p> 
+                    <p class="text-gray-300 body flex justify-center capitalize text-sm">@{{ username }}</p> 
+                </div>
+            </div>
+
+            <div class="col-span-2 bg-white p-10 shadow rounded-lg">
+                                      
+                <h1 class="lg:text-3xl lg:mb-8 text-black text-xl font-light text-center mt-0 mb-6">Mes informations personnelles</h1>
+                <form class="mt-8">
+                    <div class="grid grid-cols-2 space-x-4"> 
+                        <div class=" mt-8 space-y-2 text-lg">
+                            <label class="mb-0 text-gray-500">Nom utilisateur</label>
+                            <div>
+                                <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" v-model="username" />
+                            </div>
+                        </div>
+                        <div class="mt-8 space-y-2 text-lg">
+                            <label class="mb-0 text-gray-500">Phone</label>
+                            <div> 
+                                <!-- <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="tel" v-model="telephone" /> -->
+                                <vue-tel-input v-model="tel" :value="user.telephone" :default-country="'CM'" class="text-black bg-gray-300 p-0.5 rounded-lg mb-0 w-full" ref="phoneInput"></vue-tel-input>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="grid grid-cols-2 space-x-4"> 
+                        <div class="mt-8 space-y-2 text-lg">
+                            <label class="mb-0 text-gray-500"> Nom</label>
+                            <div> 
+                                <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" v-model="name" />
+                            </div>
+                        </div>
+                        <div class="mt-8 space-y-2 text-lg">
+                            <label class="mb-0 text-gray-500">Prenom</label>
+                            <div> 
+                                <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" v-model="surname" />
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="mb-4 mt-8 space-y-2 text-lg">
+                        <label class="mb-0 text-gray-500">Email</label>
+                        <div> 
+                            <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="email" v-model="email" />
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mt-10 justify-center text-lg">
+                        <button
+                            class="bg-[#07693A] hover:bg-[#07693A] text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                            type="submit"
+                            @click="updateUser()">
+                            Envoyer
+                        </button>
+                    </div>
+                </form>
+                <p class=" flex text-black justify-center" v-if="success">Profile updated successfully!</p>
+            </div>
         </div>
-        <div class="col-md-3 px-md-1">
-          <input
-            label="Username"
-            placeholder="Username"
-            v-model="model.username"
-          >
+
+        <div class="col-span-2 bg-white mt-10 p-10 shadow rounded-lg">
+                                      
+            <h1 class="lg:text-3xl lg:mb-8 text-black text-xl font-light text-center mt-0 mb-6">Modifier mon mot de passe</h1>
+            <form class="mt-8">
+                
+                <div class="mb-4 mt-8 hidden space-y-2 text-lg">
+                    <label class="mb-0 text-gray-500">username</label>
+                    <div> 
+                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="username" />
+                    </div>
+                </div>
+                <div class="mb-4 mt-8 space-y-2 text-lg">
+                    <label class="mb-0 text-gray-500">Ancien mot de passe</label>
+                    <div> 
+                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="oldPassword" />
+                    </div>
+                </div>
+                <div class="mb-4 mt-8 space-y-2 text-lg">
+                    <label class="mb-0 text-gray-500">Nouveau mot de passe</label>
+                    <div> 
+                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="newPassword" />
+                    </div>
+                </div>
+               <!-- <div class="mb-4 mt-8 space-y-2 text-lg">
+                    <label class="mb-0 text-gray-500">confirmer le nouveau mot de passe</label>
+                    <div> 
+                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="password" />
+                    </div>
+                </div>  -->
+                
+                <div class="flex items-center mt-10 justify-center text-lg">
+                    <button
+                        class="bg-[#07693A] hover:bg-[#07693A] text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                        type="submit"
+                        @click="updatePassword()">
+                        Envoyer
+                    </button>
+                </div>
+            </form>
+            <p class=" flex text-black justify-center" v-if="successpwd">Password updated successfully!</p>
         </div>
-        <div class="col-md-4 pl-md-1">
-          <input
-            label="Email address"
-            type="email"
-            placeholder="mike@email.com"
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 pr-md-1">
-          <input
-            label="First Name"
-            v-model="model.firstName"
-            placeholder="First Name"
-          >
-        </div>
-        <div class="col-md-6 pl-md-1">
-          <input
-            label="Last Name"
-            v-model="model.lastName"
-            placeholder="Last Name"
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <input
-            label="Address"
-            v-model="model.address"
-            placeholder="Home Address"
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 pr-md-1">
-          <input label="City" v-model="model.city" placeholder="City">
-        </div>
-        <div class="col-md-4 px-md-1">
-          <input
-            label="Country"
-            v-model="model.country"
-            placeholder="Country"
-          >
-        </div>
-        <div class="col-md-4 pl-md-1">
-          <input label="Postal Code" placeholder="ZIP Code"> 
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
-          <input>
-            <label>About Me</label>
-            <textarea
-              rows="4"
-              cols="80"
-              class="form-control"
-              placeholder="Here can be your description"
-              v-model="model.about"
-            >
-            </textarea>
-        </div>
-      </div>
-      <button type="primary" fill>Save</button>
+
+
+        
     </div>
-  </template>
-  <script>
-  export default {
-    props: {
-      model: {
-        type: Object,
-        default: () => {
-          return {};
+</template>
+
+<script>
+    import {Api} from '../../helpers';
+    import { ref } from "vue";
+
+
+    export default {
+      components: {
+      },
+
+      data() {
+        return {
+            user: {},
+            ok:'',
+            profileImageURL:"",
+            username:"",
+            name:"",
+            tel:"",
+            surname:"",
+            email:"",
+            success:false,
+            successpwd:false,
+            newPassword:"",
+            oldPassword:""
+        }
+      },
+
+      mounted() {
+        let user = JSON.parse(localStorage.getItem('user'));
+        console.log(user)
+        this.user = user
+        this.username = user.username,
+        this.surname = user.surname,
+        this.name = user.name,
+        this.email = user.email,
+        this.profileImageURL = user.image.url
+        if(user.telephone == null){
+            this.tel = ""
+        }
+        else{
+            this.tel = user.telephone
+        }
+
+      },
+
+      methods:{
+        updateUser(){
+            console.log(tel)
+
+            Api.put('/authentication/api/auth/update-user',{
+                codepays:"237",           
+                email: this.email,
+                name: this.name,
+                surname: this.surname,
+                telephone: this.tel,
+                username: this.username
+                })
+                .then(response => {
+                    // mettre à jour le nombre de vues dans l'interface utilisateur
+                    console.log(response.data);
+                    localStorage.setItem('user',JSON.stringify(response.data));
+                    this.success=true;
+
+                    }).catch(function(error) {
+                    console.log(error);
+                })
+                
+            },
+
+            updatePassword(){
+                Api.put('/authentication/api/auth/changePassword',{
+                    oldPassword: this.oldPassword,
+                    newPassword:this.newPassword,
+                    username:this.username
+                    })
+                    .then(response => {
+                        // mettre à jour le nombre de vues dans l'interface utilisateur
+                        console.log(response.data);
+                        localStorage.setItem('user',JSON.stringify(response.data));
+                        this.successpwd=true;
+
+                        }).catch(function(error) {
+                        console.log(error);
+                    })
+            },
+
+            onImageSelect(event){
+            const file = event.target.files[0]
+            const formData = new FormData()
+            formData.append('file', file)           
+            Api.put('/authentication/api/auth/update-photo-user/{id}?username=' +this.user.username, formData)
+            .then(response => {
+                console.log(response);
+                localStorage.setItem('user',JSON.stringify(response.data))
+                location.reload()
+
+            }).catch(function(error){
+                console.log(error);
+            })
+
+        },
+
+        callref(){
+            this.$refs.imageprofile.click()
         }
       }
+
     }
-  };
-  </script>
-  <style>
+</script>
+
+
+<style>
+
 </style>
-  
+ 

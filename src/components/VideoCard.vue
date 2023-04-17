@@ -29,12 +29,15 @@
     </div>
 
     <div v-else>
-      <Image
+      <router-link :to="'/readvideo/' + video.id"> 
+        <Image
         :src="video.image.url"
         :size="185"
         :class="{ 'rounded-b-none shadow': isScaled }"
         :alt="video.title"
       />
+      </router-link>
+     
 
       <div
         v-if="isMouseEnter && isDesktop"
@@ -61,7 +64,7 @@
               <IconPlayFill class="text-xs" />
             </router-link>
             </circle-button>
-            <circle-button class="p-1">
+            <!-- <circle-button class="p-1">
               <IconPlus class="text-xs" />
             </circle-button>
             <circle-button class="p-1">
@@ -69,12 +72,12 @@
             </circle-button>
             <circle-button class="p-1">
               <IconThumbDown class="text-xs" />
-            </circle-button>
+            </circle-button> -->
           </div>
 
-          <circle-button class="p-1">
+          <!-- <circle-button class="p-1">
             <IconKeyboardArrowDown class="text-xs" />
-          </circle-button>
+          </circle-button> -->
         </div>
 
         <p class="line-clamp-1">{{ video.title || video.description }}</p>

@@ -21,11 +21,17 @@ const routes = [
     component: FormSignUp,
     props: { isHeader: false },
   },
+
   {
     path: "/readvideo/:id",
     component: ReadVideo,
     props: { isHeader: false },
+    meta: {
+      requiresAuth: true
+    }
   },
+
+ 
 
   {
     path: "/",
@@ -39,27 +45,49 @@ const routes = [
     component: ReplayPage,
     name: "Programmes",
     props: { isHeader: true },
+    meta: {
+      requiresAuth: true
+    }
   },
 
   {
-    path: "/browse/direct",
+    path: "/direct/:id",
     component: DirectPage,
     name: "Direct",
     props: { isHeader: true },
+    meta: {
+      requiresAuth: true
+    }
   },
+
+  // {
+  //   path: "/browse/direct",
+  //   component: DirectPage,
+  //   name: "Direct",
+  //   props: { isHeader: true },
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
   
   {
     path: "/browse/stream",
     component: BrowsePage,
     name: "Stream",
     props: { isHeader: true },
+    meta: {
+      requiresAuth: true
+    }
   },
 
   {
-    path: "/user/profile",
+    path: "/user/compte",
     component: UserProfilePage,
     name: "UserProfile",
     props: { isHeader: false },
+    meta: {
+      requiresAuth: true
+    }
   },
 
   {
@@ -67,6 +95,9 @@ const routes = [
     component: SearchPage,
     name: "Search",
     props: { isHeader: false },
+    meta: {
+      requiresAuth: true
+    }
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
@@ -88,3 +119,4 @@ const router = createRouter({
 });
 
 export default router;
+

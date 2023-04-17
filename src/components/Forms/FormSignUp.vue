@@ -39,7 +39,7 @@
               <input v-model="email" type="email" name="" id="" placeholder="Email" >
             </div>
             <div class="field input" v-if="connect === 'Phone'">
-              <vue-tel-input v-model="phone" class="tel-input" ></vue-tel-input>
+              <vue-tel-input v-model="tel" :default-country="'CM'" :input-options="{placeholder: 'Numero de tel'}" class="tel-input" ></vue-tel-input>
             </div>
           </transition-group>
           <div class="name-details">
@@ -58,7 +58,7 @@
             <input type="checkbox" class="checkbox">
             <label class="link">J'ai lu et j'accepte <router-link to="#" class="condition">la politque de confidentialité</router-link> et <router-link to="#" class="condition">les règles générales d'utilisation</router-link> de TV+</label>
           </div>
-          <div class="field button"  >
+          <div class="field button" >
             <input value="S'inscrire" type="submit" v-on:click="createAccount()" >
           </div>
       </form>
@@ -103,7 +103,7 @@ export default {
       maskPassword(){
         this.show=false;
       },
-     createAccount() {
+     createAccountWithEmail() {
       if(this.first_name == '' || this.last_name == '' || this.username == '' || this.email == '' || 
       this.password == '' || this.password_verified == ''){
         this.message_error='Veuillez remplir tous les champs'
@@ -113,12 +113,11 @@ export default {
         }else{
           this.message_error=''
           const self = this;
-          this.$store.dispatch('createAcount', {
+          this.$store.dispatch('createAcountByEmail', {
             name:this.first_name,
             surname:this.last_name,
             username:this.username,
             email:this.email,
-            //telephone:this.tel,
             password:this.password
           })
             .then(function(response){
@@ -130,7 +129,46 @@ export default {
             })
         }
       }
+    },
+
+     createAccountWithPhone() {
+      if(this.first_name == '' || this.last_name == '' || this.username == '' || this.tel == '' || 
+      this.password == '' || this.password_verified == ''){
+        this.message_error='Veuillez remplir tous les champs'
+      }else{
+        if(this.password_verified != this.password){
+          this.message_error='Les mots de passe sont différents'
+        }else{
+          this.message_error=''
+          const self = this;
+          this.$store.dispatch('createAcountByPhone', {
+            codepays:this.$refs.phoneRef.selectedCountryCode,
+            name:this.first_name,           
+            surname:this.last_name,
+            username:this.username,
+            telephone:this.tel,
+            password:this.password
+          })
+            .then(function(response){
+              self.$router.push('/login')
+              console.log(response)
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+        }
+      }
+    },
+
+    createAccount(){
+      if(this.connect == 'Email'){
+        this.createAccountWithEmail()
+      }
+      else{
+        this.createAccountWithPhone()
+      }
     }
+
   }
 }
 </script>

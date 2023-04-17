@@ -30,21 +30,9 @@
       </div>
       <Search v-if="this.$store.state.user.id != -1" />
 
-
-<!-- <form class="flex items-center" v-if="this.$store.state.user.id != -1">   
-    <div class="relative w-full">
-        <input type="text" id="simple-search" class="text-white placeholder-white bg-transparent text-lg rounded-lg block w-full mx-20 p-3 py-1.5" placeholder="Rechercher un programme, une vidéo..." required>
-    </div>
-    <button type="submit" class="pl-10">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <span class="sr-only">Search</span>
-    </button>
-</form> -->
-
-
       <button class="btn-order1 rounded-full" type="submit" v-if="this.$store.state.user.id == -1"><router-link to="/login" class="bold nav-link active">Se connecter</router-link></button>
       <div class="flex items-center space-x-4 justify-end" v-else>
-        <router-link to="/user/profile">
+        <router-link to="/user/compte">
           <label class="text-lg font-bold capitalize">{{ user.username }}</label>
         </router-link>
         <div>
@@ -52,12 +40,12 @@
         </div>
        
         <div v-bind:class="{'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow}" class="bg-black text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width:12rem" ref="popoverDropdownRef">
-          <router-link to="/user/profile" class="text-sm hover:bg-gray-800 py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
+          <!-- <router-link to="/user/profile" class="text-sm hover:bg-gray-800 py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent  text-slate-700">
             Mon compte
+          </router-link> -->
+          <router-link to="/user/compte" class="text-sm py-2 px-4 hover:bg-gray-800 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
+            Mon Compte
           </router-link>
-          <a href="#" class="text-sm py-2 px-4 hover:bg-gray-800 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
-            Mes favoris
-          </a>
           <div class="h-0 my-2 border border-solid border-t-0 border-slate-800 opacity-25"></div>
           <a href="" v-on:click="logout()" class="text-sm hover:bg-gray-800 py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
             Déconnexion
@@ -120,9 +108,11 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
     this.getconnection()
   },
+
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+
   methods: {
     handleScroll() {
       this.isTop = window.scrollY === 0;
@@ -227,13 +217,6 @@ export default {
     .btn-order1:hover{
       transform: scale(1.1);
     }
-
-    /* .profile-img{
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      margin-right: 150px;
-    } */
 
     .menuclass{
       @apply inline-block focus:text-gray-300 focus:border-gray-300 border-b-4 text-lg font-netflix_medium transition duration-300 font-bold;

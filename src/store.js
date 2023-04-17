@@ -97,8 +97,13 @@ const store = createStore({
         id:'',
         name:'',
         images:'',
-        videos:[],
+        videos:[]
       },
+
+      tags:{
+        id:'',
+        name:''
+        },
 
       getstreams:{
         id:'',
@@ -138,6 +143,9 @@ const store = createStore({
     },
     categories: function (state, categories){
         state.categories = categories
+    },
+    tags: function (state, tags){
+        state.tags = tags
     },
     getstreams: function (state, getstreams){
         state.getstreams = getstreams
@@ -180,7 +188,6 @@ const store = createStore({
       },
 
       
-
       loginToPhone:({commit}, userInfos) =>{
           commit('setStatus','loading');
           return new Promise((resolve, reject) => {
@@ -189,6 +196,7 @@ const store = createStore({
                   commit('setStatus','');
                   commit('logUser',response.data);
                   resolve(response);
+                  console.log(response.data);
               }).catch(function(error) {
                   commit('setStatus','error_login');
                   reject(error);
@@ -230,20 +238,36 @@ const store = createStore({
 
       // ************ACTION CREATE ACOUNT****************
 
-      createAcount:({commit}, userInfos) =>{
-          return new Promise((resolve, reject) => {
-              commit;
-              Api.post('/authentication/api/auth/signup-email',userInfos)
-              .then(function (response) {
-                  commit('setStatus','');
-                  commit('logUser',response.data);
-                  resolve(response);
-              }).catch(function(error) {
-                  commit('setStatus','error_create');
-                  reject(error);
-              })
-          });
-      },
+    createAcountByEmail:({commit}, userInfos) =>{
+        return new Promise((resolve, reject) => {
+            commit;
+            Api.post('/authentication/api/auth/signup-email',userInfos)
+            .then(function (response) {
+                commit('setStatus','');
+                commit('logUser',response.data);
+                resolve(response);
+            }).catch(function(error) {
+                commit('setStatus','error_create');
+                reject(error);
+            })
+        });
+    },
+
+
+    createAcountByPhone:({commit}, userInfos) =>{
+        return new Promise((resolve, reject) => {
+            commit;
+            Api.post('/authentication/api/auth/signup-phone',userInfos)
+            .then(function (response) {
+                commit('setStatus','');
+                commit('logUser',response.data);
+                resolve(response);
+            }).catch(function(error) {
+                commit('setStatus','error_create');
+                reject(error);
+            })
+        });
+    },
 
 
       // ************ACTION GET VIDEOS****************
@@ -272,6 +296,16 @@ const store = createStore({
           Api.get('/streamvod/rest/categories/all')
           .then(function (response) {
               commit('categories',response.data.content);
+              console.log(response.data.content);
+          }).catch(function(err) {
+              console.log(err);
+          })
+      },
+
+      get_tags:({commit})=>{
+          Api.get('/streamvod/rest/tags/all')
+          .then(function (response) {
+              commit('tags',response.data.content);
               console.log(response.data.content);
           }).catch(function(err) {
               console.log(err);

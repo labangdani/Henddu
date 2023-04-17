@@ -1,7 +1,8 @@
 <template>
     <div class=" block-chaine ">
       <div class="program" v-for="(planification, index) in listplanifications" :key="index">
-        <div class="devant space-x-4">
+        <router-link :to="'/direct/' + planification.id"> 
+          <div class="devant space-x-4" >
           <div class="img-direct">
             <img :src=planification.programme.image.url alt="" />
           </div>
@@ -10,6 +11,7 @@
             <p class="text-black">{{channel.channel_name}}</p>
           </div>
         </div>
+        </router-link>
         <div class="bg-white h-36 w-56 mb-10 relative bottom-32 right-2.5 rounded-tr-none rounded-b-3xl"></div>
       </div>
     </div>
@@ -17,7 +19,6 @@
 <script>
 
 import {Api} from '../helpers';
-import { mapState} from 'vuex';
 
 export default {
   name: 'LiveCard',
@@ -29,9 +30,8 @@ export default {
     }
   },
 
-
   mounted(){
-    this.$store.dispatch('get_planifications'); 
+    // this.$store.dispatch('get_planifications'); 
     this.get_planning()
   },
 
@@ -50,7 +50,8 @@ export default {
           if(new Date(item.endDate) >= now){
             this.listplanifications.push(item)
           }
-        }      
+        } 
+        console.log(item)     
       })
       })
     },

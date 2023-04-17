@@ -22,7 +22,9 @@
     > 
       <SwiperSlide v-for="video in videos" :key="video.id">
         <video-card :video="video" :id="video.id" />
-        <div class="flex mt-2.5 text-lg font-bold justify-center">{{video.title}}</div>
+        <router-link :to="'/readvideo/' + video.id"> 
+          <div class="flex mt-2.5 text-lg font-bold justify-center">{{video.title}}</div>
+        </router-link>
       </SwiperSlide>
       <template #container-end>
         <div class="

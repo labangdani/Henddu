@@ -10,7 +10,6 @@
                 <div class="h-0 mb-2.5 border border-solid border-t-0 border-slate-800 opacity-25"></div>
                 <div class="flex justify-between mb-2.5 px-2.5">
                     <div class="flex justify-center space-x-2" @click="likeVideo()"><svg class="h-6 w-6" :class="{colorGreen: islike === true }" viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" /></svg><p>{{ likeTab.length }}</p></div>
-                    <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" /></svg></div>
                     <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg><p>{{ commentTab.length }}</p></div>
                     <div class="flex space-x-2"><svg class="h-6 w-6 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="18" cy="5" r="3" />  <circle cx="6" cy="12" r="3" />  <circle cx="18" cy="19" r="3" />  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg></div>
                     <div class="flex space-x-2" @click="favVideo()"><svg class="h-6 w-6" :class="{colorGreen: isfav === true }"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg></div>
@@ -22,7 +21,7 @@
                 <form class="mt-8">    
                     <div class="flex space-x-3 mb-4">
                         <img class="mb-0 h-10 w-10 rounded-full" :src=user.image.url />
-                        <input type="text" v-model="content_comment" class="text-white border-b-2 bg-transparent text-md block w-full py-1.5" placeholder="Ajouter un commentaire" />
+                        <input type="text" v-model="content_comment" class="text-white outline-none border-b-2 bg-transparent text-md block w-full py-1.5" placeholder="Ajouter un commentaire" />
                     </div>
                     <div class="flex justify-end mb-4 space-x-4">
                         <button class="border-b-2">Annuler</button>
@@ -156,9 +155,9 @@
         },
 
         methods:{
-            reload(){
-                location.reload()
-            },
+            // reload(){
+            //     location.reload()
+            // },
 
             insertComment() {
                 Api.post('/streamvod/rest/comments/create/' + this.$route.params.id,
@@ -166,9 +165,11 @@
                 .then( response => {
                     console.log(response.data.content);
                     this.commentTab.push(response.data.content.content); 
+                    location.reload();
                 }).catch(function(error) {
                     console.log(error);
                 })
+
             },
 
             likeVideo() {
@@ -229,11 +230,7 @@
         },
         
         async mounted(){
-            console.log(this.$store.state.user.username)
             this.user = JSON.parse(localStorage.getItem('user'));
-            if (this.$store.state.user.id == -1){
-                this.$router.push ('/')
-            }
 
             //*********** VIDEOS EN LECTURE ***************
 
