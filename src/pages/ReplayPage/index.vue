@@ -57,38 +57,11 @@
           <div class="">
             <video-card :video="video" :id="video.id" />
           </div>
-          <div class="flex mt-2.5 text-lg font-bold justify-center text-center">{{video.title}}</div>
+          <div class="max-w-[90%] max-h-[28px] text-ellipsis overflow-hidden text-center text-md font-bold mt-1">{{video.title}}</div>
         </div>
       <!-- </div> -->
 
-      <template>
-        <div
-          class="
-            swiper-button swiper-button-prev
-            group
-            cursor-pointer
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
-
-        <div
-          class="
-            swiper-button
-            group
-            cursor-pointer
-            swiper-button-next
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
-      </template>
+      
     </div>
     </div>
     </div>

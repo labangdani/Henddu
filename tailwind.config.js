@@ -19,6 +19,7 @@ module.exports = {
         netflix_medium: ["Netflix_Medium", "Helvetica", "Arial", "sans-serif"],
         body: ["Open Sans"],
         apple: ["-apple-system"]
+
       },
       animation: {
         "card-hover": "card-hover 300ms forwards",

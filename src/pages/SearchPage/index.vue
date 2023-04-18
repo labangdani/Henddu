@@ -1,6 +1,6 @@
 <template>
   <section class="p-20">
-    <h1 class="text-4xl font-light font-sans"> Résultat de mes vidéos</h1>
+    <h1 class="text-4xl font-light font-sans">Résultats de la recherche</h1>
       <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
       
     <div
@@ -15,34 +15,6 @@
         </div>
         <div class="flex mt-2.5 text-lg font-bold justify-center text-center">{{video.title}}</div>
       </div>
-      <template>
-        <div
-          class="
-            swiper-button swiper-button-prev
-            group
-            cursor-pointer
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
-
-        <div
-          class="
-            swiper-button
-            group
-            cursor-pointer
-            swiper-button-next
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
-      </template>
     </div>
     </div>
   </section>

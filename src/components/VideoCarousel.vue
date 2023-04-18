@@ -4,57 +4,65 @@
     class="carousel-container mb-14 pt-6 relative"
     :class="[childHovering ? 'animate-z-hover' : 'animate-z-unhover']"
   >
-  <div v-if="this.$store.state.user.id == -1">
-    <Swiper
-      v-bind="options"
-      @slideChange="handleToggleButton"
-    >
-      <SwiperSlide v-for="image in images" :key="image.id">
-        <video-card :image="image" :id="image.id" />
-      </SwiperSlide>
-    </Swiper>
-  </div>
-    
-  <div v-else>
-    <Swiper
-      v-bind="options"
-      @slideChange="handleToggleButton"
-    > 
-      <SwiperSlide v-for="video in videos" :key="video.id">
-        <video-card :video="video" :id="video.id" />
-        <router-link :to="'/readvideo/' + video.id"> 
-          <div class="flex mt-2.5 text-lg font-bold justify-center">{{video.title}}</div>
-        </router-link>
-      </SwiperSlide>
-      <template #container-end>
-        <div class="
-            swiper-button swiper-button-prev
-            group
-            cursor-pointer
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
+    <div v-if="this.$store.state.user.id == -1">
+      <Swiper
+        v-bind="options"
+        @slideChange="handleToggleButton"
+      >
+        <SwiperSlide v-for="image in images" :key="image.id">
+          <video-card :image="image" :id="image.id" />
+        </SwiperSlide>
+      </Swiper>
+    </div>
+      
+    <div v-else>
+      <Swiper
+        v-bind="options"
+        @swiper="onReady"
+        @slideChange="handleToggleButton"
+      > 
+        <SwiperSlide v-for="video in videos" :key="video.id">
+          <video-card :video="video" :id="video.id" />
+          <router-link :to="'/readvideo/' + video.id"> 
+            <div class="max-w-[90%] max-h-[28px] text-ellipsis overflow-hidden text-center text-md font-bold mt-1">{{video.title}}</div>
+          </router-link>
+        </SwiperSlide>
+        <template #container-end>
+          <!-- <div class=""> -->
+            <div class="
+              swiper-button
+              swiper-button-prev
+              group
+              cursor-pointer
+              flex
+              items-center
+              justify-center 
+              
+            "
+            >
+              <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+            </div>
+          <!-- </div> -->
+        
+        <!-- <div class="">  -->
+            <div
+              class="
+                swiper-button
+                group
+                cursor-pointer
+                swiper-button-next
+                flex
+                items-center
+                justify-center
+              "
+            >
+              <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+            </div>
+        <!-- </div>  -->
+        </template>
+      </Swiper>
+    </div>
 
-        <div
-          class="
-            swiper-button
-            group
-            cursor-pointer
-            swiper-button-next
-            flex
-            items-center
-            justify-center
-          "
-        >
-          <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-        </div>
-      </template>
-    </Swiper>
-  </div>
   </div>
 </template>
 
@@ -203,6 +211,14 @@ export default {
     };
   },
 
+  components: {
+    VideoCard,
+    Swiper,
+    SwiperSlide,
+    IconArrowRight,
+    IconArrowLeft,
+  },
+
   data() {
     return {
       connected:false,
@@ -221,13 +237,7 @@ export default {
     }
   }, 
 
-  components: {
-    VideoCard,
-    Swiper,
-    SwiperSlide,
-    IconArrowRight,
-    IconArrowLeft,
-  },
+
 };
 </script>
 
@@ -251,7 +261,7 @@ export default {
 
 .swiper-button-next,
 .swiper-button-prev {
-  @apply absolute h-full w-6 md:w-12 mt-0 top-0 bg-black bg-opacity-50;
+  @apply absolute w-14 h-14 rounded-full top-0 bg-black bg-opacity-50;
   z-index: 2;
 }
 

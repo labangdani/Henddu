@@ -26,7 +26,7 @@
         <div class="">
           <video-card :video="video" :id="video.id" />
         </div>
-        <div class="flex mt-2.5 text-lg font-bold justify-center text-center">{{video.title}}</div>
+        <div class="max-w-[90%] max-h-[28px] text-ellipsis overflow-hidden text-center text-md font-bold mt-1">{{video.title}}</div>
       </div>
       <!-- <template>
         <div

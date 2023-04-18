@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import FormSignUp from '/src/components/Forms/FormSignUp.vue';
 import ReadVideo from '/src/components/ReadVideo.vue';
+import PolitiquePage from '/src/components/Politique.vue';
+import ConditionPage from '/src/components/Condition.vue';
 
 const BrowsePage = () => import("./BrowsePage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
@@ -16,9 +18,21 @@ const routes = [
     component: LoginPage,
     props: { isHeader: false },
   },
+
   {
     path: "/signin",
     component: FormSignUp,
+    props: { isHeader: false },
+  },
+
+  {
+    path: "/politique",
+    component: PolitiquePage,
+    props: { isHeader: false },
+  },
+  {
+    path: "/condition",
+    component: ConditionPage,
     props: { isHeader: false },
   },
 

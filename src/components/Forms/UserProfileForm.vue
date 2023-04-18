@@ -1,9 +1,9 @@
 <template>
-   <div class="w-full">
+   <div class="w-full ">
         <div class="grid grid-cols-3 space-x-6">
             <div class="grid grid-rows-2 shadow">
                 <img :src="profileImageURL" class="rounded-t-lg" alt="Image de profil">
-                <div class="bg-white rounded-b-lg">
+                <div class="max-h-[60%] bg-white rounded-b-lg">
                     <div class="flex justify-center -mt-10">
                         <img :src="profileImageURL" class="w-28 border-4  h-28 mb-4 rounded-full" alt="Image de profil">
                         <form>
@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="col-span-2 bg-white p-10 shadow rounded-lg">
+            <div class="max-h-[80%] col-span-2 bg-white p-10 shadow rounded-lg">
                                       
                 <h1 class="lg:text-3xl lg:mb-8 text-black text-xl font-light text-center mt-0 mb-6">Mes informations personnelles</h1>
                 <form class="mt-8">
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="col-span-2 bg-white mt-10 p-10 shadow rounded-lg">
+        <div class="col-span-2 bg-white p-10 shadow rounded-lg">
                                       
             <h1 class="lg:text-3xl lg:mb-8 text-black text-xl font-light text-center mt-0 mb-6">Modifier mon mot de passe</h1>
             <form class="mt-8">

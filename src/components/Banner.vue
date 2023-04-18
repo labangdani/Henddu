@@ -19,8 +19,8 @@
             mode="out-in"
           >
             <div class="w-[50%] space-y-6">
-              <h1 class="text-8xl font-serif line-clamp-2">
-              Welcome
+              <h1 class="text-7xl font-sans">
+                Welcome
               </h1> 
             </div>
           </transition>

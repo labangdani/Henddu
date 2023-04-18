@@ -1,18 +1,20 @@
 <template>
-    <div class=" block-chaine ">
+    <div class="">
       <div class="program" v-for="(planification, index) in listplanifications" :key="index">
         <router-link :to="'/direct/' + planification.id"> 
           <div class="devant space-x-4" >
           <div class="img-direct">
             <img :src=planification.programme.image.url alt="" />
           </div>
-          <div class="chaine-logo" v-for="(channel, index) in planification.channels" :key="index">
-            <img :src=channel.channel_logo.url alt="" />
-            <p class="text-black">{{channel.channel_name}}</p>
+          <div class="flex justify-center" v-for="(channel, index) in planification.channels" :key="index">
+            <img class="h-18 w-24" :src=channel.channel_logo.url alt="" />
+          </div>
+          <div>
+          <p class="text-white">{{channel.channel_name}}</p>
           </div>
         </div>
         </router-link>
-        <div class="bg-white h-36 w-56 mb-10 relative bottom-32 right-2.5 rounded-tr-none rounded-b-3xl"></div>
+        <!-- <div class="bg-white h-36 w-56 mb-10 relative bottom-32 right-2.5 rounded-tr-none rounded-b-3xl"></div> -->
       </div>
     </div>
 </template>
