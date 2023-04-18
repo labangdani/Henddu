@@ -18,7 +18,6 @@
     <div v-else>
       <Swiper
         v-bind="options"
-        @swiper="onReady"
         @slideChange="handleToggleButton"
       > 
         <SwiperSlide v-for="video in videos" :key="video.id">
@@ -36,7 +35,8 @@
               cursor-pointer
               flex
               items-center
-              justify-center 
+              justify-center
+              mt-32 
               
             "
             >
@@ -54,6 +54,7 @@
                 flex
                 items-center
                 justify-center
+                mt-32 
               "
             >
               <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />

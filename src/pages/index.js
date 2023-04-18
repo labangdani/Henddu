@@ -75,7 +75,7 @@ const routes = [
   },
 
   // {
-  //   path: "/browse/direct",
+  //   path: "/direct/14",
   //   component: DirectPage,
   //   name: "Direct",
   //   props: { isHeader: true },

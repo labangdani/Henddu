@@ -17,7 +17,6 @@ import error from "./assets/error.png";
 
 router.beforeEach((to, from, next) => {
   const local = localStorage.getItem('user')
-  console.log(local)
   if (to.meta.requiresAuth && !local) {
     next('/')
   } else {

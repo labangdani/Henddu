@@ -1,18 +1,21 @@
 <template>
+  
     <div class="">
       <div class="program" v-for="(planification, index) in listplanifications" :key="index">
         <router-link :to="'/direct/' + planification.id"> 
-          <div class="devant space-x-4" >
-          <div class="img-direct">
-            <img :src=planification.programme.image.url alt="" />
+          <div class="devant" >
+            <div class="img-direct">
+              <img :src=planification.programme.image.url alt="" />
+            </div>
+            <div v-for="(channel, index) in planification.channels" :key="index">
+              <div class="flex justify-center mt-2"> 
+                <img class="h-18 w-24" :src=channel.channel_logo.url alt="" />
+              </div>
+              <div> 
+                <p class="text-white text-md mt-2 font-bold text-center">{{channel.channel_name}}</p>
+              </div>
+            </div>
           </div>
-          <div class="flex justify-center" v-for="(channel, index) in planification.channels" :key="index">
-            <img class="h-18 w-24" :src=channel.channel_logo.url alt="" />
-          </div>
-          <div>
-          <p class="text-white">{{channel.channel_name}}</p>
-          </div>
-        </div>
         </router-link>
         <!-- <div class="bg-white h-36 w-56 mb-10 relative bottom-32 right-2.5 rounded-tr-none rounded-b-3xl"></div> -->
       </div>
@@ -33,7 +36,6 @@ export default {
   },
 
   mounted(){
-    // this.$store.dispatch('get_planifications'); 
     this.get_planning()
   },
 
@@ -48,13 +50,13 @@ export default {
           const startDateWithoutTime = new Date(new Date(item.startDate).getFullYear(), new Date(item.startDate).getMonth(), new Date(item.startDate).getDate());
           const endDateWithoutTime = new Date(new Date(item.endDate).getFullYear(), new Date(item.endDate).getMonth(), new Date(item.endDate).getDate());
           const nowWithoutTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        if(startDateWithoutTime <= nowWithoutTime && nowWithoutTime <= endDateWithoutTime){
-          if(new Date(item.endDate) >= now){
-            this.listplanifications.push(item)
+          if(startDateWithoutTime <= nowWithoutTime && nowWithoutTime <= endDateWithoutTime){
+            if(new Date(item.endDate) >= now){
+              this.listplanifications.push(item)
+            }
           }
-        } 
-        console.log(item)     
-      })
+        })
+        console.log(this.listplanifications) 
       })
     },
   }

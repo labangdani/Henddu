@@ -87,38 +87,29 @@
                                 this.planif_id == item.channels.id
                             }})
 
-                    Api.get('/streamvod/rest/videos/'+this.planif_id)
-                    // .then((result) =>
-                    // // console.log(result)
-                    // // this.video = result.data.content,
-                    // // this.$refs.videoPlayer.src = this.video.url,
-                    // // console.log(this.$refs.videoPlayer.src)
-                    // )                   
-                })   
+                this.watchvideo(14)                 
+                })
             }
-
         },
 
 
         methods:{
 
-        async watchvideo(planif_id){
+            async watchvideo(planif_id){
                 const response = await Api.get('/streamvod/rest/planification/{id}?id='+planif_id)
-                this.channel=response.data.content.channels
+                this.channel=response.data.content
                 this.channel.forEach(item => {
                 console.log(item.channel_url)
                 this.$refs.livePlayer.src = item.channel_url
-
-                })
-                    
+                })        
             },
 
             get_menu(){
                 this.menu = 'Programm';
             },
-        }
-        
+        }    
     }
+
 </script>
 
 <style>
