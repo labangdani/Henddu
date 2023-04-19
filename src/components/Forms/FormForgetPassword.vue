@@ -4,7 +4,7 @@
         <section class="form signup">
             <header><div class="img"></div></header>
             <form >
-            <div class="text1">Vous Souhaitez recuperer votre mot de passe</div>
+            <div class="text1">Souhaitez vous récupérer votre mot de passe ?</div>
                 <br>
                 <div class="field input">
                     <input v-model="password" type="text" name="" id="" placeholder="entrez votre adresse mail">

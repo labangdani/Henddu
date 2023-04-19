@@ -15,17 +15,20 @@
                     <div class="flex space-x-2" @click="favVideo()"><svg class="h-6 w-6" :class="{colorGreen: isfav === true }"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg></div>
                 </div>
                 <div class="h-0 mb-4 border border-solid border-t-0 border-slate-800 opacity-25"></div>
-                <div class="text-lg capitalize bg-gray-700 rounded-lg p-2.5">{{ views }} vues<br>{{ description }}</div>
+                <div class="capitalize bg-gray-700 rounded-lg p-2.5">
+                    <h2 class="text-sm text-gray-300">{{ views }} vues</h2>
+                    <p class="text-md ">{{ description }}</p>
+                </div>
                 <!-- <br><br> -->
 
                 <form class="mt-8">    
                     <div class="flex space-x-3 mb-4">
                         <img class="mb-0 h-10 w-10 rounded-full" :src=user.image.url />
-                        <input type="text" v-model="content_comment" class="text-white outline-none border-b-2 bg-transparent text-md block w-full py-1.5" placeholder="Ajouter un commentaire" />
+                        <input type="text" class="text-white outline-none border-b-2 bg-transparent text-md block w-full py-1.5" placeholder="Ajouter un commentaire" v-model="content_comment" @input="checkForm" />
                     </div>
                     <div class="flex justify-end mb-4 space-x-4">
                         <button class="border-b-2">Annuler</button>
-                        <button class="bg-[#07693A] p-2.5 rounded-2xl" @click="insertComment()">Ajouter un commentaire</button>
+                        <button type="submit" class="bg-[#07693A] py-1.5 px-5 rounded-full disabled:bg-gray-700 disabled:cursor-not-allowed" :disabled="formIncomplete" @click="insertComment()">Ajouter un commentaire</button>
                     </div>
                 </form>
 
@@ -50,34 +53,6 @@
                         </div>
                     </div> -->
                 </div>
-
-                <!-- <form action="">
-                    <div class="cadre-imput-comment">
-                        <div class="input-comment">
-                            <div class="input-group flex-nowrap">
-                                <span class="camera" id="addon-wrapping"><font-awesome-icon icon="fa-solid fa-camera" /></span>
-                                <input type="text" v-model="content_comment" class="form-control" placeholder="Type Comment" aria-label="Username" aria-describedby="addon-wrapping">
-                            </div>
-                        </div>
-                        <div class="comment-button">
-                            <button class="annuler">Annuler</button>
-                            <button class="btn-order1 rounded-3 me-4" @click="insertComment()">Ajouter un commentaire</button>
-                        </div>
-                    </div>
-                </form> -->
-
-                <!-- <br><br> -->
-                <!-- <p>{{description}}</p> -->
-                <!-- <div class="commentaire mt-5" v-for="(comment, index) in commentTab.slice().reverse()" :key="index">
-                    <div class="w-10 rounded-full">
-                            <img src="/src/assets/images/profile.png" alt="">
-                        <div>
-                            <div class="name-commentaire">{{comment.user}}</div>
-                            <div class="time-commentaire">{{ moment(comment.createdAt).fromNow() }}</div>
-                        </div>
-                    </div>
-                    <div class="commentaire-text">{{ comment.content }}</div>
-                </div> -->
             </div>
 
             <div class="pr-10 ">
@@ -145,6 +120,12 @@
                 email:'',
             }
             }
+        },
+
+        computed: {
+            formIncomplete() {
+            return !(this.content_comment);
+            },
         },
 
         setup() {
@@ -215,18 +196,39 @@
                 }
             },
 
+            formatNumber(number) {
+                if (number >= 1000000000) {
+                    return (number / 1000000000).toFixed(1) + ' Milliards';
+                } else if (number >= 1000000) {
+                    return (number / 1000000).toFixed(1) + ' millions';
+                } else if (number >= 1000) {
+                    return (number / 1000).toFixed(1) + ' milliers';
+                } else {
+                    return number.toString();
+                }
+            },
+
             incrementViews() {
                 // appel à l'API pour incrémenter le nombre de vues
                 Api.put('/streamvod/rest/videos/update-vue/' + this.$route.params.id)
                     .then(response => {
                     // mettre à jour le nombre de vues dans l'interface utilisateur
-                    console.log(response.data.content.nbVues);
-                    this.views = response.data.content.nbVues
+                    // console.log(response.data.content.nbVues);
+                    this.views = this.formatNumber(response.data.content.nbVues)
+                        console.log(this.views)
+                    
                     })
                     .catch(error => {
                     console.log(error);
                     });
-            }
+            },
+
+            checkForm() {
+                this.$nextTick(() => {
+                    this.formIncomplete = !(this.content_comment);
+                });
+            },
+
         },
         
         async mounted(){
@@ -334,8 +336,22 @@
   box-shadow: 0px 0px 12px 0px #000000;
 }
 
+/* .commentclass{
+    @apply bg-[#07693A] p-2.5 rounded-2xl;
+} */
+
 .video-card img {
   @apply object-cover rounded-md absolute top-0 left-0 w-full h-full;
+}
+
+.submit-button:disabled {
+    cursor: not-allowed;
+    background-color: #D1D5DB;
+    color: #111827;
+}
+
+.submit-button:disabled:hover {
+    background-color: #9CA3AF;
 }
 
 </style>

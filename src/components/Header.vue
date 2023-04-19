@@ -18,11 +18,10 @@
             <router-link
               :to="route.path"
               role="presentation"
-            
               aria-selected="false"
               v-on:click="get_menu(route.name)"
             >
-                {{ route.name }}
+              {{ route.name }}
             </router-link>
           </div>
           
@@ -154,9 +153,6 @@ export default {
       this.$store.commit('logout')
     },
 
-    home(){
-      this.$router.push ('/')
-    },
   },
 
   setup(){

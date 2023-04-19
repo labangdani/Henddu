@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import FormSignUp from '/src/components/Forms/FormSignUp.vue';
+import FormForgetPassword from '/src/components/Forms/FormForgetPassword.vue';
 import ReadVideo from '/src/components/ReadVideo.vue';
 import PolitiquePage from '/src/components/Politique.vue';
 import ConditionPage from '/src/components/Condition.vue';
@@ -22,6 +23,12 @@ const routes = [
   {
     path: "/signin",
     component: FormSignUp,
+    props: { isHeader: false },
+  },
+
+  {
+    path: "/forgetpassword",
+    component: FormForgetPassword,
     props: { isHeader: false },
   },
 

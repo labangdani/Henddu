@@ -12,11 +12,11 @@
             </div>
 
             <div class="">
-                <ul class="flex space-x-4 mt-4 text-md font-bold">
-                    <li @click="get_menu()">
+                <ul class="flex space-x-4 mt-4 text-md text-gray-400">
+                    <li @click="get_live()" :class="{liveclass: connect === 'direct'} ">
                         En direct
                     </li>
-                    <li @click="get_menu()">
+                    <li @click="get_next()" :class="{liveclass: connect === 'suivre'} ">
                         A suivre
                     </li>
                 </ul> 
@@ -62,7 +62,9 @@
             return{
                 video:'',
                 planif:'',
-                channel:[]
+                channel:[],
+                connect:'direct',
+
             }
         },
 
@@ -75,7 +77,7 @@
 
         async mounted(){
             this.planif_id = this.$route.params.id;
-            if(this.planif_id !== ''){
+            if(this.planif_id !== ':id'){
                 this.watchvideo(this.planif_id);
             }
             else{
@@ -85,9 +87,10 @@
                         this.planif.forEach(item =>{
                             if(item.channels.channel_name=="Canal 2 international"){
                                 this.planif_id == item.channels.id
+                                this.watchvideo(this.planif_id)                 
+
                             }})
 
-                this.watchvideo(14)                 
                 })
             }
         },
@@ -97,15 +100,20 @@
 
             async watchvideo(planif_id){
                 const response = await Api.get('/streamvod/rest/planification/{id}?id='+planif_id)
-                this.channel=response.data.content
+                console.log(response.data.content)
+                this.channel=response.data.content.channels
                 this.channel.forEach(item => {
                 console.log(item.channel_url)
                 this.$refs.livePlayer.src = item.channel_url
                 })        
             },
 
-            get_menu(){
-                this.menu = 'Programm';
+            get_live(){
+                this.connect = 'direct';
+            },
+
+            get_next(){
+                this.connect = 'suivre';
             },
         }    
     }
@@ -113,7 +121,8 @@
 </script>
 
 <style>
-    .commentaire{
+
+    /* .commentaire{
         margin-left: 10px;
     }
     .section{
@@ -164,7 +173,7 @@
    }
    .commentaire-text{
     margin-left: 40px;
-    /* color: #fff; */
+    //color: #fff;
    }
    .appreciation-commentaire{
     display: flex;
@@ -217,8 +226,10 @@
    }
    .like-block div:hover {
     transform: scale(1.2);
-   }
-   .menuclass{
-      @apply inline-block focus:text-gray-300 focus:border-gray-300 border-b-4 text-lg font-netflix_medium transition duration-300 font-bold;
-    }
+   } */
+
+.liveclass{
+    @apply inline-block border-green-500 border-b-4 text-white font-netflix_medium transition duration-300 font-bold;
+}
+
 </style>

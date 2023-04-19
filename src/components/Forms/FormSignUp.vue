@@ -56,7 +56,7 @@
           </div>
           <div class="field radio">
             <input type="checkbox" class="checkbox">
-            <label class="link">J'ai lu et j'accepte <router-link to="#" class="condition">la politque de confidentialité</router-link> et <router-link to="#" class="condition">les règles générales d'utilisation</router-link> de TV+</label>
+            <label class="link">J'ai lu et j'accepte <router-link to="/politique" class="condition">la politique de protection des données</router-link> et <router-link to="/condition" class="condition">Les conditions générales d'utilisation</router-link> de 2PLAY</label>
           </div>
           <div class="field button" >
             <input value="S'inscrire" type="submit" v-on:click="createAccount()" >

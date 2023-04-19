@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="max-h-[80%] col-span-2 bg-white p-10 shadow rounded-lg">
+            <div class="max-h-[90%] col-span-2 bg-white p-10 shadow rounded-lg">
                                       
                 <h1 class="lg:text-3xl lg:mb-8 text-black text-xl font-light text-center mt-0 mb-6">Mes informations personnelles</h1>
                 <form class="mt-8">
@@ -33,7 +33,7 @@
                             <label class="mb-0 text-gray-500">Phone</label>
                             <div> 
                                 <!-- <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="tel" v-model="telephone" /> -->
-                                <vue-tel-input v-model="tel" :value="user.telephone" :default-country="'CM'" class="text-black bg-gray-300 p-0.5 rounded-lg mb-0 w-full" ref="phoneInput"></vue-tel-input>
+                                <vue-tel-input :default-country="'CM'" class="text-black bg-gray-300 p-0.5 rounded-lg mb-0 w-full" ref="phoneInput"></vue-tel-input>
                                 
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                <!-- <div class="mb-4 mt-8 space-y-2 text-lg">
                     <label class="mb-0 text-gray-500">confirmer le nouveau mot de passe</label>
                     <div> 
-                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="password" />
+                        <input class="text-black bg-gray-300 p-2.5 rounded-lg mb-0 w-full" type="password" v-model="confirmpassword" />
                     </div>
                 </div>  -->
                 
@@ -138,7 +138,7 @@
             profileImageURL:"",
             username:"",
             name:"",
-            tel:"",
+            // tel:"",
             surname:"",
             email:"",
             success:false,
@@ -157,25 +157,25 @@
         this.name = user.name,
         this.email = user.email,
         this.profileImageURL = user.image.url
-        if(user.telephone == null){
-            this.tel = ""
-        }
-        else{
-            this.tel = user.telephone
-        }
+        // if(user.telephone == null){
+        //     this.tel = ""
+        // }
+        // else{
+        //     this.tel = user.telephone
+        // }
 
       },
 
       methods:{
         updateUser(){
-            console.log(tel)
+            // console.log(tel)
 
             Api.put('/authentication/api/auth/update-user',{
                 codepays:"237",           
                 email: this.email,
                 name: this.name,
                 surname: this.surname,
-                telephone: this.tel,
+                // telephone: this.tel,
                 username: this.username
                 })
                 .then(response => {
@@ -201,27 +201,31 @@
                         console.log(response.data);
                         localStorage.setItem('user',JSON.stringify(response.data));
                         this.successpwd=true;
+                        this.$store.commit('logout');
+                        this.$router.push ('/');
 
                         }).catch(function(error) {
                         console.log(error);
                     })
+
+                
             },
 
             onImageSelect(event){
-            const file = event.target.files[0]
-            const formData = new FormData()
-            formData.append('file', file)           
-            Api.put('/authentication/api/auth/update-photo-user/{id}?username=' +this.user.username, formData)
-            .then(response => {
-                console.log(response);
-                localStorage.setItem('user',JSON.stringify(response.data))
-                location.reload()
 
-            }).catch(function(error){
-                console.log(error);
-            })
+                const file = event.target.files[0]
+                const formData = new FormData()
+                formData.append('file', file)           
+                Api.put('/authentication/api/auth/update-photo-user/{id}?username=' +this.user.username, formData)
+                .then(response => {
+                    console.log(response);
+                    localStorage.setItem('user',JSON.stringify(response.data))
+                    location.reload()
 
-        },
+                }).catch(function(error){
+                    console.log(error);
+                })
+            },
 
         callref(){
             this.$refs.imageprofile.click()

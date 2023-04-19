@@ -3,7 +3,7 @@
 
   <div v-else>
     <div v-if="this.$store.state.user.id == -1">
-      <h1 class="text-3xl body mb-6" >
+      <h1 class="text-3xl text-slate-500 body mb-6" >
         {{ getstream.titre }} 
       </h1>
       <video-carousel :images="getstream.images" />

@@ -3,12 +3,12 @@
     <div class="wrapper1">
       <section class="form signup">
         <header><div class="img"></div></header>
-        <form >
-          <div class="text1">Rejoignez nous et bénéficiez de plus d'avantages. Nous promettons de conserver vos données en toute sécurité.</div>
-          <div  class="text1" v-if="status === 'error_login'" >
-            <strong>Username ou Mot de passe ivalide</strong>
+        <form @click="login()">
+          <div class="text-2xl font-bold text-center text-white">Se Connecter</div>
+          <div  class="text-sm text-red-600 text-center" v-if="status === 'error_login'" >
+            <strong>Username ou Mot de passe invalide</strong>
           </div>
-          <div  class="propsition">
+          <div  class="propsition mt-4">
             <div :class="{layour: connect === 'Email' || connect === ''}">
               <button @click=" connectToEmail"><strong>Email</strong></button>
             </div>
@@ -41,13 +41,13 @@
                 <span class="eyes" @click="showPassword" v-if="show == false "><font-awesome-icon icon="fa-solid fa-eye-slash" /></span>
               </div>
               
-            <div class="mdp_oublie"><router-link to="/FormForgetPassword">Mot de passe oublié ?</router-link></div>
+            <div class="mdp_oublie"><router-link to="/forgetpassword">Mot de passe oublié ?</router-link></div>
             <div class="field button">
               <!-- <button  >
                 <span v-if="status == 'loading'">Connexion en cours ...</span>
                 <span v-else></span>
               </button> -->
-              <input @click="login()" type="submit" value="Connectez-vous maintenant" >
+              <input type="submit" value="Connectez-vous maintenant" >
             </div>
         </form>
         <div class="link">Vous n'avez pas de compte ? <router-link to="/signin" class="condition">S'inscrire</router-link></div>

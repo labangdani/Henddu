@@ -3,35 +3,35 @@
     <h1 class="text-4xl font-light font-sans"> Programmes TV</h1>
     <video-carousel-skeleton v-if="isLoading" />
     <div class="" v-else>
-        <div class="grid grid-cols-3 py-5">
-          <div class="col-span-2 space-y-4">
-              <ul class="flex space-x-8">
-                <li >
-                  <a :class="{buttonclass: connect === 'tous' || connect === ''}" class="rounded-full font-bold px-4 py-1 bg-gray-700" v-on:click="search('',tagname)" ><button class="uppercase text-sm text-white rounded-full font-bold ">Tous</button></a>
-                </li>
-                <li v-for="categorie in listcategories" :key="categorie.id" >
-                  <a :class="{buttonclass: connect === categorie.name}" class="rounded-full font-bold px-4 py-1 bg-gray-700" v-on:click="search(categorie.name, tagname)" v-if="categorie.name != 'BanniereContainer'" ><button class="uppercase text-sm text-white font-bold">{{categorie.name}}</button></a>
-                </li>
-              </ul>
-          </div>
+      <div class="grid grid-cols-3 py-5">
+        <div class="col-span-2 space-y-4">
+          <ul class="flex space-x-8">
+            <li >
+              <a :class="{buttonclass: connect === 'tous' || connect === ''}" class="rounded-full font-bold px-4 py-1 bg-gray-700" v-on:click="search('',tagname)" ><button class="uppercase text-sm text-white rounded-full font-bold ">Tous</button></a>
+            </li>
+            <li v-for="categorie in listcategories" :key="categorie.id" >
+              <a :class="{buttonclass: connect === categorie.name}" class="rounded-full font-bold px-4 py-1 bg-gray-700" v-on:click="search(categorie.name, tagname)" v-if="categorie.name != 'BanniereContainer'" ><button class="uppercase text-sm text-white font-bold">{{categorie.name}}</button></a>
+            </li>
+          </ul>
+        </div>
           
-          <div class="flex justify-end">
-            <button @click="toggleDropdown()" class="flex text-md font-bold text-white" ref="btnDropdownRef">{{ selectedOption }}
-              <svg class="h-6 w-6 pl-1 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg>            </button>
+        <div class="flex justify-end">
+          <button @click="toggleDropdown()" class="flex text-md font-bold text-white" ref="btnDropdownRef">{{ selectedOption }}
+            <svg class="h-6 w-6 pl-1 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg>            </button>
 
-            <ul :class="{'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow}" class="bg-black z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width:12rem" ref="popoverDropdownRef">
-              <button v-for="channel in channels" class="text-md font-bold py-2 capitalize px-4 hover:bg-gray-800 block w-full whitespace-nowrap bg-transparent text-white" :key="channel.id" @click="selectOption(channel.channel_name, channel.id)">
-                {{ channel.channel_name }}
-              </button>
-              <button class="text-md font-bold py-2 px-4 hover:bg-gray-800 block w-full whitespace-nowrap bg-transparent text-white"  @click="selectOption('Chaînes', 0)">
-                Chaînes
-              </button>
-            </ul>
-          </div>
+          <ul :class="{'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow}" class="bg-black z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width:12rem" ref="popoverDropdownRef">
+            <button v-for="channel in channels" class="text-md font-bold py-2 capitalize px-4 hover:bg-gray-800 block w-full whitespace-nowrap bg-transparent text-white" :key="channel.id" @click="selectOption(channel.channel_name, channel.id)">
+              {{ channel.channel_name }}
+            </button>
+            <button class="text-md font-bold py-2 px-4 hover:bg-gray-800 block w-full whitespace-nowrap bg-transparent text-white"  @click="selectOption('Chaînes', 0)">
+              Chaînes
+            </button>
+          </ul>
+        </div>
 
         </div>
 
-        <ul class="block-chaine mb-4 space-x-2">
+        <ul class="grid grid-flow-col overflow-auto scroll-none mb-4 space-x-2">
           <li >
             <a :class="{buttonclass: choicetag === 'tous' || choicetag === ''}" class="rounded-full px-4 py-0.5 font-bold bg-gray-700" v-on:click="search(categoryname,'')"><button class="capitalize text-sm text-white body rounded-full">Tous</button></a>
           </li>
@@ -246,37 +246,27 @@ export default {
 };
 </script>
 <style>
- .btn-order1{
-    background-color: #07693A;
-    }
- .active{
-    background-color: #07693A;
-    }
+.btn-order1{
+  background-color: #07693A;
+}
 
-  .block-chaine{
-    display: grid;
-    grid-auto-flow: column;
-    /* grid-auto-columns: 16%; */
-    gap: var(--size-3);
-    overflow: auto;
-    scroll-behavior: none; 
-    width: 100%;
+.active{
+  background-color: #07693A;
+}
 
-  }
+.block-chaine::-webkit-scrollbar{
+  width: 0;
+}
 
-  .block-chaine::-webkit-scrollbar{
-    width: 0;
-  }
+.buttonclass{
+  /* background-color: #fff; */
+  @apply hover:bg-[#07693A];
+  background-color: #07693A;
+}
 
-  .buttonclass{
-    /* background-color: #fff; */
-    @apply hover:bg-[#07693A];
-    background-color: #07693A;
-  }
-
-  .swiper {
-    overflow: visible;
-  }
+.swiper {
+  overflow: visible;
+}
 
 .swiper-button-disabled {
   display: none;
@@ -317,9 +307,5 @@ export default {
 .swiper-pagination-bullet-active {
   @apply bg-white;
 }
-
-
-
-
 
 </style>
