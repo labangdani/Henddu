@@ -1,48 +1,70 @@
-# Cloneflix
+# Getting Started with Create React App
 
-A netflix clone website built with Vue and Tailwind
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Table of contents
+## Available Scripts
 
-- [Technologies](#technologies)
-- [Setup](#setup)
-- [Example](#example)
-- [Sources](#sources)
+In the project directory, you can run:
 
-## Technologies
+### `npm start`
 
-- [Vue](https://github.com/vuejs/vue), [Tailwind](https://github.com/tailwindlabs/tailwindcss)
-- Libraries: [Vue Query](https://github.com/tannerlinsley/react-query), [Swiper](https://github.com/nolimits4web/swiper).
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Setup
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-To run this project, install it locally using npm (or yarn):
+### `npm test`
 
-```
-npm install
-npm run dev
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Example
+### `npm run build`
 
-Here is some screenshots to show how the website would looks like.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-##### Banner
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-![image](https://user-images.githubusercontent.com/68330291/135614517-bb92d893-70ec-4fbf-b318-5748a571b32e.png)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-##### Swipers
+### `npm run eject`
 
-![swipers](https://user-images.githubusercontent.com/68330291/135614469-8f55b0d0-4114-4711-8095-f1a6578af315.png)
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-##### Details modal
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-![modal](https://user-images.githubusercontent.com/68330291/135614403-93f51f6d-2f1d-4c14-9512-576702a560c7.png)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## Learn More
 
-Or here is the [live example](https://cloneflix-ashen.vercel.app/#/)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Sources
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-- Netflix
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

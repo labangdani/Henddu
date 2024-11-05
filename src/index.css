@@ -1,35 +1,17 @@
 @tailwind base;
 @tailwind components;
-
-:root {
-  --primary-color: #e50914;
-  --primary-color-rgb: 229, 9, 20;
-  --secondary-color: #525759;
-  --secondary-color-rgb: 82, 87, 89;
-  --background-color: #141414;
-  --background-color-rgb: 20, 20, 20;
-  --typography-color: #e5e5d8;
-  --typography-color-rgb: 229, 229, 216;
-}
-
-/* @font-face {
-  font-family: "Netflix";
-  src: local("Netflix"), url(./fonts/Netflix_Regular.woff2) format("woff2");
-}
-
-@font-face {
-  font-family: "Netflix_Medium";
-  src: local("Netflix_Medium"),
-    url(./fonts/Netflix_Medium.woff2) format("woff2");
-} */
+@tailwind utilities;
 
 body {
-  @apply text-typography font-netflix;
-  background-color: var(--background-color);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#app {
-  overflow-x: hidden;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
-
-@tailwind utilities;
