@@ -1,15 +1,15 @@
 import logo from "../../assets/logos/henddu_logo.png"
 import { IoMdNotifications } from "react-icons/io";
-import UserMenu from "../../components/DropdownProfile/DropdownProfile";
+import UserMenu from "../UserMenu/UserMenu";
 
 const TopBar = () => {
     return (
         <header className="sticky top-0 bg-white text-white">
             <div class="px-4">
-                <div class="flex items-center justify-between h-16">
-                    <div className="flex items-center space-x-8 font-medium text-sm">
+                <div class="flex items-center justify-between h-12">
+                    <div className="flex items-center space-x-8 font-medium text-xs">
                         <div>
-                            <img src={logo} alt="capture henddu logo" />
+                            <img className="h-9" src={logo} alt="capture henddu logo" />
                         </div>
                         <button className="rounded-md bg-[#0D7377] p-2 text-white uppercase">
                             monitoring

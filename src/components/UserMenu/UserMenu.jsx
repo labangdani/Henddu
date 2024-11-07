@@ -53,7 +53,7 @@ function UserMenu({ align = 'right' }) {
                 <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
                 <div className='ml-2  text-left'>
                     <div className="flex items-center truncate space-x-2">
-                        <span className="truncate text-md font-medium text-black">
+                        <span className="truncate text-xs font-medium text-black">
                             John Doe
                         </span>
 
@@ -64,7 +64,7 @@ function UserMenu({ align = 'right' }) {
                             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                         </svg>
                     </div>
-                    <div className='text-xs capitalize'>analyst</div>
+                    <div className='text-[0.65rem] capitalize'>analyst</div>
                 </div>
 
             </button>
@@ -72,13 +72,13 @@ function UserMenu({ align = 'right' }) {
             {dropdownOpen && (
                 <div
                     ref={dropdown}
-                    className={`origin-top-right z-10 absolute top-full min-w-36 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
+                    className={`origin-top-right z-10 absolute top-full min-w-28 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
                 >
 
                     <ul>
                         <li>
                             <Link
-                                className="text-sm flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
+                                className="text-xs flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
                                 to="/settings/account"
                                 onClick={() => setDropdownOpen(false)}
                             >
@@ -88,7 +88,7 @@ function UserMenu({ align = 'right' }) {
                         </li>
                         <li>
                             <Link
-                                className="text-sm flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
+                                className="text-xs flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
                                 to="/settings/account"
                                 onClick={() => setDropdownOpen(false)}
                             >
@@ -98,7 +98,7 @@ function UserMenu({ align = 'right' }) {
                         </li>
                         <li>
                             <Link
-                                className="text-sm flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
+                                className="text-xs flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
                                 to="/signin"
                                 onClick={() => setDropdownOpen(false)}
                             >

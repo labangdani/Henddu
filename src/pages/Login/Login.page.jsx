@@ -1,5 +1,5 @@
 import './Login.css';
-import loginimg from '../../assets/images/loginimg.png';
+import loginimg from '../../assets/images/loginimg1.png';
 import logo from '../../assets/logos/logo.png';
 import ButtonSpinner from '../../components/ButtonSpinner/ButtonSpinner';
 import { InputText } from 'primereact/inputtext';
@@ -7,9 +7,12 @@ import { InputText } from 'primereact/inputtext';
 
 function Login() {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 h-screen fixed">
       <div className=''>
-        <img className='h-full w-full object-contain' src={loginimg} alt="capture login" />
+        <div className='relative'>
+          <img className='' src={loginimg} alt="capture login" />
+          <div className='absolute top-0 left-0 bg-[#299094]/20 h-full w-full'></div>
+        </div>
       </div>
       <div className='items-center mt-10'>
         <div className='flex justify-center mb-4 ' >

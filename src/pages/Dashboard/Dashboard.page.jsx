@@ -6,7 +6,7 @@ function Dashboard() {
     return (
         <div>
             <TopBar />
-            <div class="flex h-full">
+            <div class="flex h-screen">
                 <MenuBar />
 
                 <div
