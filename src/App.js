@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import "./App.css";
 import Routers from "./routes/Router.navigation";
+
 // import { Provider } from "react-redux";
 
 
@@ -32,6 +33,7 @@ function App() {
         <ApolloProvider client={apolloClient}>
           <Routers />
         </ApolloProvider>
+
       {/* </Provider> */}
     </>
   );

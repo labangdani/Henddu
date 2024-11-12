@@ -9,6 +9,8 @@ import dashboard11 from "../../assets/images/dashboard11.png"
 import ButtonSpinner from "../../components/ButtonSpinner/ButtonSpinner"
 import { useState } from "react"
 import TabButton from "../../components/Tab/TabButton"
+import { useNavigate } from "react-router-dom";
+
 
 
 const MONITORING_TAB = "1"
@@ -18,6 +20,13 @@ const FORECAST_TAB = "3"
 function AppPresentation() {
 
   const [currentTab, setCurrentTab] = useState("1")
+
+  const navigate = useNavigate();
+
+  const onClickHandle = () => {
+    console.log("navigate")
+    navigate("/monitoring/dashbord");
+  }
 
   return (
     <div>
@@ -92,7 +101,7 @@ function AppPresentation() {
                   <li><span className="text-gray-400">Data history</span></li>
                   <li><span className="text-gray-400">Comparison between different measurement points</span></li>
                 </ul>
-                <ButtonSpinner stylebtn={"p-1 px-8 text-center text-xs rounded-md bg-[#108286] first-letter:uppercase cursor-pointer text-white"}>Explore</ButtonSpinner>
+                <ButtonSpinner onclick={onClickHandle} stylebtn={"p-1 px-8 text-center text-xs rounded-md bg-[#108286] first-letter:uppercase cursor-pointer text-white"}>Explore</ButtonSpinner>
               </div>}
 
               {currentTab === "2" && <div className="text-sm xl:text-lg">
@@ -114,7 +123,7 @@ function AppPresentation() {
                   <li><span className="text-gray-400">Visualization of confidence intervals</span></li>
                   <li><span className="text-gray-400">Export of results</span></li>
                 </ul>
-                <ButtonSpinner stylebtn={"p-1 px-8 text-center text-xs rounded-md bg-[#108286] first-letter:uppercase cursor-pointer text-white"}>Explore</ButtonSpinner>
+                <ButtonSpinner stylebtn={"p-1 px-8 text-center text-xs rounded-md bg-[#108286] first-letter:uppercase cursor-pointer text-white"} >Explore</ButtonSpinner>
               </div>}
 
               <div className="flex justify-center">

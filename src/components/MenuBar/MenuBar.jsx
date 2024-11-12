@@ -2,12 +2,12 @@ import { MdDashboard, MdSettings, MdHelpOutline } from "react-icons/md";
 import { TbBellRinging, TbDeviceImacCog, TbClipboardText } from "react-icons/tb";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import MenuBarItem from "../MenuBarItem/MenuBarItem";
-
+import "./MenuBar.css"
 
 const MenuBar = () => {
 
     return (
-        <div className="bg-[#0D7377] max-w-min h-screen flex justify-center">
+        <div className="overflow-y-auto scrollbar-hide bg-[#0D7377] h-screen max-w-min">
             <div className="text-white flex flex-col justify-between">
                 <div>
                     <MenuBarItem
@@ -43,7 +43,8 @@ const MenuBar = () => {
                         to={"/monitoring/data-sharing-collaboration"}
                     />
                 </div>
-                <div>
+
+                <div >
                     <MenuBarItem
                         label="Settings"
                         Icon={MdSettings}

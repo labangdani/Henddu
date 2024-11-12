@@ -5,10 +5,9 @@ function MenuBarItem({ label, to, Icon }) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
-
 
   const [active, setActive] = useState(false)
+  
   useEffect(() => {
     setActive(location.pathname === to)
   }, [location])

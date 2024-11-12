@@ -7,13 +7,13 @@ function Dashboard() {
     return (
         <div>
             <TopBar />
-            <div className="flex h-screen ">
-                <div className="h-full overflow-hidden">
-                    <MenuBar />
-                </div>
-                <div className="flex-auto ">
-                    <Map />
-                </div>
+            <div className="flex top-12 fixed w-full">
+                <MenuBar />
+                {/* <div className="overflow-y-auto h-screen overflow-hidden"> */}
+                    <div className="flex-auto">
+                        <Map />
+                    </div>
+                {/* </div> */}
             </div>
         </div>
     );

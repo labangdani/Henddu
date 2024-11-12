@@ -1,10 +1,11 @@
 import React from "react";
 
-const ButtonSpinner = ({ fetching, children, stylebtn }) => {
+const ButtonSpinner = ({ fetching, children, stylebtn, onclick }) => {
   return (
     <button
       disabled={fetching}
       className={stylebtn}
+      onClick={onclick}
     >
       {fetching ? (
         <div
