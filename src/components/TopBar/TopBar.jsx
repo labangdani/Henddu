@@ -27,7 +27,7 @@ const TopBar = () => {
                         <IoMdNotifications className="text-gray-500" size={26} />
                         <div className="absolute top-0 -right-1 rounded-full bg-red-500 text-white h-4 w-4 flex justify-center text-[0.65rem]"><span >5</span></div>
                     </div>
-                    <div><UserMenu /></div>
+                    <div className="flex items-center"><UserMenu /></div>
                 </div>
             </div>
         </header>
