@@ -1,13 +1,13 @@
 import Login from "./login/Login.page";
 import AppPresentation from "./apppresentation/AppPresentation.page";
-import Dashboard from "./dashboard/Dashboard.page";
-import DataAnalytics from "./dataanalytics/DataAnalytics.page";
-import Reporting from "./reporting/Reporting.page";
-import DataShaColl from "./datashacol/DataShaColl.page";
-import DeviceManagement from "./devicemanagement/DeviceManagement.page";
-import Alert from "./alerts/Alerts.page";
-import Settings from "./settings/Settings.page";
-import Help from "./help/Help.page";
+import Dashboard from "./monitoring/dashboard/Dashboard.page";
+import DataAnalytics from "./monitoring/dataanalytics/DataAnalytics.page";
+import Reporting from "./monitoring/reporting/Reporting.page";
+import DataShaColl from "./monitoring/datashacol/DataShaColl.page";
+import DeviceManagement from "./monitoring/devicemanagement/DeviceManagement.page";
+import Alerts from "./monitoring/alerts/Alerts.page";
+import Settings from "./monitoring/settings/Settings.page";
+import Help from "./monitoring/help/Help.page";
 
 
 export {
@@ -18,7 +18,7 @@ export {
   Reporting,
   DataShaColl,
   DeviceManagement,
-  Alert,
+  Alerts,
   Settings,
   Help,
 };

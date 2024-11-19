@@ -9,7 +9,7 @@ import {
   Reporting,
   DataShaColl,
   DeviceManagement,
-  Alert,
+  Alerts,
   Settings,
   Help,
 } from "../pages";
@@ -42,7 +42,7 @@ const Routers = () => {
       <Route path="/monitoring/reporting" element={<Reporting />} />
       <Route path="/monitoring/data-sharing-collaboration" element={<DataShaColl />} />
       <Route path="/monitoring/device-management" element={<DeviceManagement />} />
-      <Route path="/monitoring/alert" element={<Alert />} />
+      <Route path="/monitoring/alert" element={<Alerts />} />
       <Route path="/monitoring/settings" element={<Settings />} />
       <Route path="/monitoring/help" element={<Help />} />
     </Routes>

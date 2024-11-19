@@ -1,10 +1,10 @@
-import TopBar from "../../components/TopBar/TopBar"
-import MenuBar from "../../components/MenuBar/MenuBar"
-import bg_profil from "../../assets/images/bg_profil.png"
-import profil from "../../assets/images/profile.webp"
+import TopBar from "../../../components/TopBar/TopBar"
+import MenuBar from "../../../components/MenuBar/MenuBar"
+import bg_profil from "../../../assets/images/bg_profil.png"
+import profil from "../../../assets/images/user-avatar-32.png"
 import { FaLocationDot } from "react-icons/fa6";
-import ButtonSpinner from "../../components/ButtonSpinner/ButtonSpinner"
-import passwordicon from "../../assets/images/teenyicons_password-solid.png"
+import ButtonSpinner from "../../../components/ButtonSpinner/ButtonSpinner"
+import passwordicon from "../../../assets/images/teenyicons_password-solid.png"
 
 
 function Settings() {
@@ -22,7 +22,7 @@ function Settings() {
                             <div class="relative h-32 bg-cover bg-center" style={{ backgroundImage: `url(${bg_profil})` }}>
 
                                 <div class="absolute left-5 bottom-0 transform translate-y-1/2">
-                                    <img src={profil} alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-white shadow-md" />
+                                    <img src={profil} alt="capture profil" class="w-24 h-24 rounded-full shadow-md" />
                                 </div>
                             </div>
 

@@ -1,7 +1,7 @@
-import TopBar from "../../components/TopBar/TopBar"
-import MenuBar from "../../components/MenuBar/MenuBar"
+import TopBar from "../../../components/TopBar/TopBar"
+import MenuBar from "../../../components/MenuBar/MenuBar"
 import React, { useState } from "react";
-import MenuButton from "../../components/MenuButton/MenuButton";
+import MenuButton from "../../../components/MenuButton/MenuButton";
 
 const FIRST_BUTTON = "1"
 const SECOND_BUTTON = "2"

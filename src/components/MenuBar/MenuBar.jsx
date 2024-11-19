@@ -33,7 +33,7 @@ const MenuBar = () => {
                         to={"/monitoring/device-management"}
                     />
                     <MenuBarItem
-                        label="Alert"
+                        label="Alerts"
                         Icon={TbBellRinging}
                         to={"/monitoring/alert"}
                     />

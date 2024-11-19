@@ -1,15 +1,16 @@
-import TopBar from "../../components/TopBar/TopBar";
-import MenuBar from "../../components/MenuBar/MenuBar";
-import Map from "../../components/map/Map";
+import TopBar from "../../../components/TopBar/TopBar";
+import MenuBar from "../../../components/MenuBar/MenuBar";
+import Map from "../../../components/map/Map";
 import React, { useState } from "react";
 import { Calendar } from 'primereact/calendar';
-import ButtonSpinner from "../../components/ButtonSpinner/ButtonSpinner";
+import ButtonSpinner from "../../../components/ButtonSpinner/ButtonSpinner";
+
 
 
 
 function DataAnalytics() {
     const [dates, setDates] = useState(null)
-    const [activeButton, setActiveButton] = useState(null);
+    const [activeButton, setActiveButton] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
 
     const buttons = [
@@ -20,7 +21,15 @@ function DataAnalytics() {
     ];
 
     const handleButtonClick = (id) => {
-        setActiveButton(id);
+        const index = activeButton.indexOf(id);
+        if (index > -1) {
+            const temp = [...activeButton]
+            temp.splice(index, 1)
+           setActiveButton(temp)
+        }
+        else{
+            setActiveButton([...activeButton, id])
+        }
     };
 
     return (
@@ -74,12 +83,12 @@ function DataAnalytics() {
                                 <div className="mb-4">
                                     <label htmlFor="" className="text-xs ">Select one or more polluants (max 3)</label>
                                     <br />
-                                    <div className="flex space-x-2 text-[0.57rem] mt-2">
+                                    <div className="flex space-x-2 text-[0.56rem] mt-2">
                                         {buttons.map((button) => (
                                             <button
                                                 key={button.id}
-                                                onClick={() => handleButtonClick(button.id)}
-                                                className={`rounded p-1 border shadow-md shadow-slate-200 ${activeButton === button.id ? 'bg-blue-500 text-white' : 'bg-white'
+                                                onClick={(e) =>{e.preventDefault();  handleButtonClick(button.id)}}
+                                                className={`rounded p-1 border shadow-md shadow-slate-200 ${activeButton.includes(button.id) ? 'bg-[#3D8F92] text-white' : 'bg-white'
                                                     }`}
                                             >
                                                 {button.label}

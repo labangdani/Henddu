@@ -1,6 +1,6 @@
-import TopBar from "../../components/TopBar/TopBar";
-import MenuBar from "../../components/MenuBar/MenuBar";
-import MenuButton from "../../components/MenuButton/MenuButton";
+import TopBar from "../../../components/TopBar/TopBar";
+import MenuBar from "../../../components/MenuBar/MenuBar";
+import MenuButton from "../../../components/MenuButton/MenuButton";
 import React from "react";
 import { useState } from "react"
 

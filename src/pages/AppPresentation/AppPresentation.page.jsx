@@ -43,14 +43,6 @@ function AppPresentation() {
           </div>
           <div className="bg-white rounded-lg shadow-xl px-4 py-8 mx-5 sm:mx-10 md:mx-20 lg:mx-80">
             <div className="flex justify-between mb-10 mx-5 lg:mx-20 text-sm">
-              {/* 1 */}
-              {/* <button onClick={() => setCurrentTab("1")} className={`px-6 py-4 border-b-4 ${currentTab === '1' ? 'border-[#0D7377] text-[#0D7377]' : 'border-gray-500 text-gray-400'} `}>
-                <div className="flex justify-center">
-                  <img className="mb-2 w-10" src={monitoringIcon} alt="capture monitoringicon" />
-                </div>
-                <span className="capitalize text-center">monitoring</span>
-              </button> */}
-
               <TabButton
                 title={"monitoring"}
                 tabId={MONITORING_TAB}
@@ -74,21 +66,6 @@ function AppPresentation() {
                 activeIcon={activeforecastIcon}
                 currentTab={currentTab}
                 setCurrentTab={setCurrentTab} />
-
-              {/* 2 */}
-              {/* <button onClick={() => setCurrentTab("2")} className={`px-6 py-4 border-b-4 ${currentTab === '2' ? 'border-[#0D7377] text-[#0D7377]' : 'border-gray-500 text-gray-400'} `}>
-                <div className="flex justify-center">
-                  <img className="mb-2 w-10" src={chartanalyticsIcon} alt="capture chartanalyticsIcon" />
-                </div>
-                <span className="capitalize text-center">analysis</span>
-              </button> */}
-              {/* 3 */}
-              {/* <button onClick={() => setCurrentTab("3")} className={`px-6 py-4 border-b-4 ${currentTab === '3' ? 'border-[#0D7377] text-[#0D7377]' : 'border-gray-500 text-gray-400'} `}>
-                <div className="flex justify-center">
-                  <img className="mb-2 w-10" src={forecastVector} alt="capture forecastVector" />
-                </div>
-                <span className="capitalize text-center">forecast</span>
-              </button> */}
             </div>
 
             <div className="grid grid-cols-2 mx-2.5 lg:mx-5 space-x-10">
