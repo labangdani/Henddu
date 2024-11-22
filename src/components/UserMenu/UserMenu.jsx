@@ -89,7 +89,7 @@ function UserMenu({ align = 'right' }) {
                         <li>
                             <Link
                                 className="text-xs flex items-center py-1 px-3 space-x-2 hover:text-white hover:bg-[#103A5E]"
-                                to="/settings/account"
+                                to="/monitoring/settings"
                                 onClick={() => setDropdownOpen(false)}
                             >
                                 <IoSettingsOutline />
