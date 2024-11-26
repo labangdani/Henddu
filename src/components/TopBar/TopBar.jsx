@@ -4,7 +4,7 @@ import UserMenu from "../UserMenu/UserMenu";
 
 const TopBar = () => {
     return (
-        <header className=" w-full absolute shrink-0 bg-white flex-col top-0 right-0 left-auto ">
+        <header className=" w-full fixed shrink-0 bg-white flex-col top-0 right-0 left-auto ">
             <div className="flex px-4 items-center justify-between h-12">
                 <div className="flex items-center space-x-8 font-medium text-xs">
                     <div>

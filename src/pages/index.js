@@ -1,5 +1,5 @@
-import Login from "./login/Login.page";
-import AppPresentation from "./apppresentation/AppPresentation.page";
+import Login from "./Login/Login.page";
+import AppPresentation from "./AppPresentation/AppPresentation.page";
 import Dashboard from "./monitoring/dashboard/Dashboard.page";
 import DataAnalytics from "./monitoring/dataanalytics/DataAnalytics.page";
 import Reporting from "./monitoring/reporting/Reporting.page";
