@@ -1,25 +1,23 @@
 
-import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
+// import React, { useState, useEffect } from 'react';
 import { Carousel } from 'primereact/carousel';
-import { Tag } from 'primereact/tag';
-import { ProductService } from './service/ProductService';
+import { MdLocationPin } from "react-icons/md";
+import cityimage from '../../assets/images/Rectangle_2.png';
+import "./Carousel.css"
+
 
 export default function BasicDemo() {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
+
     const responsiveOptions = [
+
         {
-            breakpoint: '1400px',
-            numVisible: 2,
+            breakpoint: '1024px',
+            numVisible: 4,
             numScroll: 1
         },
         {
-            breakpoint: '1199px',
-            numVisible: 3,
-            numScroll: 1
-        },
-        {
-            breakpoint: '767px',
+            breakpoint: '768px',
             numVisible: 2,
             numScroll: 1
         },
@@ -30,49 +28,67 @@ export default function BasicDemo() {
         }
     ];
 
-    const getSeverity = (product) => {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
+    const cyties = [
+        {
+            id: 1,
+            cityImage: cityimage,
+            cityName: "youpougon",
+            aqiNumber: 150
+        },
+        {
+            id: 2,
+            cityImage: cityimage,
+            cityName: "cocody",
+            aqiNumber: 154
+        },
+        {
+            id: 3,
+            cityImage: cityimage,
+            cityName: "abidjan",
+            aqiNumber: 45
+        },
+        {
+            id: 4,
+            cityImage: cityimage,
+            cityName: "san-pédro",
+            aqiNumber: 200
+        },
 
-            case 'LOWSTOCK':
-                return 'warning';
+    ];
 
-            case 'OUTOFSTOCK':
-                return 'danger';
+    // useEffect(() => {
+    //     ProductService.getProductsSmall().then((data) => setProducts(data.slice(0, 9)));
+    // }, []);
 
-            default:
-                return null;
-        }
+    const onClickHandle = () => {
+        // navigate(to,)
+        console.log('good')
     };
 
-    useEffect(() => {
-        ProductService.getProductsSmall().then((data) => setProducts(data.slice(0, 9)));
-    }, []);
-
-    const productTemplate = (product) => {
+    const cityCard = (city) => {
         return (
-            <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                <div className="mb-3">
-                    <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.name} className="w-6 shadow-2" />
+
+            <div
+                onClick={onClickHandle} className="bg-white rounded-lg flex space-x-4 items-center p-2 w-44 shadow shadow-slate-200 mx-2">
+                <div>
+                    <img src={city.cityImage} alt="capture city" />
                 </div>
                 <div>
-                    <h4 className="mb-1">{product.name}</h4>
-                    <h6 className="mt-0 mb-3">${product.price}</h6>
-                    <Tag value={product.inventoryStatus} severity={getSeverity(product)}></Tag>
-                    <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
-                        <Button icon="pi pi-search" rounded />
-                        <Button icon="pi pi-star-fill" rounded severity="success" />
+                    <h1 className="font-bold text-md">{city.cityName}</h1>
+                    <div className="flex space-x-1">
+                        <MdLocationPin size={10} color="#0D7377" />
+                        <span className="text-[0.50rem]">{city.aqiNumber} AQI</span>
                     </div>
                 </div>
             </div>
+
+
         );
     };
 
     return (
-        <div className="card">
-            <Carousel value={products} numVisible={3} numScroll={3} responsiveOptions={responsiveOptions} itemTemplate={productTemplate} />
+        <div className="">
+            <Carousel value={cyties} numVisible={4} numScroll={4} responsiveOptions={responsiveOptions} itemTemplate={cityCard} showIndicators={false} />
         </div>
     )
 }
-        

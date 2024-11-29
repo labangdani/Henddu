@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as maptilersdk from "@maptiler/sdk";
-import { GeocodingControl } from "@maptiler/geocoding-control/maptilersdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import "@maptiler/geocoding-control/style.css";
-import './Map.css';
-import Carousel from "../Carousel/Carousel"
+import './SimpleMap.css';
 
 
 
-export default function Map() {
+
+export default function SimpleMap() {
     const tokyo = { lng: -4.024429, lat: 5.345317 };
     const zoom = 14;
 
@@ -152,9 +151,7 @@ export default function Map() {
             });
         });
 
-        const gc = new GeocodingControl();
-
-        map.addControl(gc, 'top-left');
+        
 
         // // Create the marker element manually
         // const markerElement = document.createElement('div');
@@ -172,46 +169,12 @@ export default function Map() {
 
     }, [tokyo.lng, tokyo.lat, zoom]);
 
-    const [activeIndex, setActiveIndex] = useState(0);
+
 
     return (
         <div>
             <div className="map-wrap">
                 <div id='map' />
-                <div id="legend" className="overlay mb-8 shadow-md">
-                    <div className='flex justify-center space-x-2 mb-3'>
-                        <h1 className='capitalize text-gray-400 text-xs'>scale</h1>
-                        <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <div className='space-y-1'>
-                        <div className='text-[10px] bg-[#7E0023] text-white text-center rounded'>300-500</div>
-                        <div className='text-[10px] bg-[#8F3F97] text-white text-center rounded'>201-300</div>
-                        <div className='text-[10px] bg-[#FF0000] text-black text-center rounded'>151-200</div>
-                        <div className='text-[10px] bg-[#FF7E00] text-black text-center rounded'>300-500</div>
-                        <div className='text-[10px] bg-[#FFFF00] text-black text-center rounded'>300-500</div>
-                        <div className='text-[10px] bg-[#00E400] text-black text-center rounded'>300-500</div>
-                    </div>
-                </div>
-                <div className='absolute bg-white bottom-0 right-0 mr-44 mb-8 flex rounded-md divide-x-1'>
-                    <button
-                        onClick={() => setActiveIndex(0)}
-                        className={`w-32 py-1 rounded-l-md ${activeIndex === 0 ? 'bg-[#103A5E] text-white' : 'text-[#103A5E] bg-white'}`}
-                    >
-                        <span>AQI</span>
-                    </button>
-                    <button
-                        onClick={() => setActiveIndex(1)}
-                        className={`w-32 py-1 rounded-r-md ${activeIndex === 1 ? 'bg-[#103A5E] text-white' : 'text-[#103A5E] bg-white'}`}
-                    >
-                        <span>Station</span>
-                    </button>
-                </div>
-
-                <div className="absolute top-0 right-0 mt-3">
-                    <Carousel />
-                </div>
             </div>
         </div>
     );
