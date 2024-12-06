@@ -1,44 +1,8 @@
 import React, { useState, useMemo } from "react";
 
-const SelectableTable = () => {
+const SelectableTable = ({titlehead, values}) => {
 
-  const formatDate = (date) => {
-    const months = [
-      "Jan", "Fev", "Mars", "Avr", "Mai", "Juin",
-      "Juil", "Août", "Sep", "Oct", "Nov", "Dec",
-    ];
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const time = `${hours % 12 || 12}:${String(minutes).padStart(2, "0")} ${hours < 12 ? "AM" : "PM"
-      }`;
-
-    return `${month} ${day}, ${year}, ${time}`;
-  };
-
-  const [rows, setRows] = useState([
-    {
-      amount: "56789",
-      moyen_paiement_img: "../src/assets/images/visa.jpg",
-      moyen_paiement: "*********",
-      description: "description paiement",
-      client: "jenedo yves",
-      date: formatDate(new Date()),
-      selected: false,
-    },
-    {
-      amount: "56789",
-      moyen_paiement_img: "../src/assets/images/mtn.png",
-      moyen_paiement: "674024242",
-      description: "description paiement",
-      client: "jenedo yves",
-      date: "",
-      selected: false,
-    },
-    // Add the rest of your rows here...
-  ]);
+  const [rows, setRows] = useState(values);
 
   const [allSelected, setAllSelected] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,36 +49,14 @@ const SelectableTable = () => {
                 onChange={selectAllRows}
               />
             </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              alert_type
-            </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              threshold
-            </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              resolved_at
-            </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              created_at
-            </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              status
-            </th>
-            <th
-              className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
-            >
-              action
-            </th>
+            {titlehead.map((row, index) => (
+              <th
+                key={index}
+                className="py-2 text-left font-bold text-[0.7rem] text-black capitalize tracking-wider"
+              >
+                {row}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 text-gray-500">
@@ -131,6 +73,10 @@ const SelectableTable = () => {
                   onChange={() => selectRow(index)}
                 />
               </td>
+              {/* <td className="px-4 py-1 whitespace-nowrap">
+                {row.client}
+              </td> */}
+             
 
               {/* Other table cells */}
             </tr>

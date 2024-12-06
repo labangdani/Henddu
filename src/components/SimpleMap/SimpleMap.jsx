@@ -5,8 +5,6 @@ import "@maptiler/geocoding-control/style.css";
 import './SimpleMap.css';
 
 
-
-
 export default function SimpleMap() {
     const tokyo = { lng: -4.024429, lat: 5.345317 };
     const zoom = 14;
@@ -151,7 +149,7 @@ export default function SimpleMap() {
             });
         });
 
-        
+
 
         // // Create the marker element manually
         // const markerElement = document.createElement('div');
@@ -173,9 +171,11 @@ export default function SimpleMap() {
 
     return (
         <div>
-            <div className="map-wrap">
-                <div id='map' />
-            </div>
+            {/* <iframe> */}
+                <div className="map-wrap">
+                    <div id='map' />
+                </div>
+            {/* </iframe> */}
         </div>
     );
 }

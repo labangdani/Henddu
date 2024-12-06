@@ -49,25 +49,25 @@ const SelectableTableHistory = () => {
 
 
     return (
-        <div class="container mx-auto">
-            <table class="table-auto w-full border-collapse">
+        <div className="container mx-auto">
+            <table className="table-auto w-full border-collapse">
                 <thead>
-                    <tr class="text-left text-sm font-medium text-gray-700">
-                        <th class="py-2 px-3">
+                    <tr className="text-left text-sm font-medium text-gray-700">
+                        <th className="py-2 px-3">
                             <input
                                 type="checkbox"
-                                class="form-checkbox text-blue-500"
+                                className="form-checkbox text-blue-500"
                                 checked={allSelected}
                                 onChange={selectAllRows}
                             />
                         </th>
-                        <th class="py-2 px-3">Name</th>
-                        <th class="py-2 px-3">Author</th>
-                        <th class="py-2 px-3">Updated</th>
-                        <th class="py-2 px-3">Size</th>
+                        <th className="py-2 px-3">Name</th>
+                        <th className="py-2 px-3">Author</th>
+                        <th className="py-2 px-3">Updated</th>
+                        <th className="py-2 px-3">Size</th>
                     </tr>
                 </thead>
-                <tbody class="text-sm text-gray-600 mt-5">
+                <tbody className="text-sm text-gray-600 mt-5">
                     {/* <!-- Row Template --> */}
                     {rows.map((row, index) => (
                         <tr
@@ -76,22 +76,22 @@ const SelectableTableHistory = () => {
                                 } hover:bg-gray-100`}
                         >
                             {/* <tr class=" hover:bg-gray-100"> */}
-                            <td class="py-2 px-3">
+                            <td className="py-2 px-3">
                                 <input
                                     type="checkbox"
-                                    class="form-checkbox text-blue-500"
+                                    className="form-checkbox text-blue-500"
                                     checked={row.selected}
                                     onChange={() => selectRow(index)} />
                             </td>
-                            <td class="py-2 px-3 flex items-center space-x-3">
-                                <span class="flex-shrink-0 bg-red-500 text-white rounded px-2 py-1 text-xs font-medium">
+                            <td className="py-2 px-3 flex items-center space-x-3">
+                                <span className="flex-shrink-0 bg-red-500 text-white rounded px-2 py-1 text-xs font-medium">
                                     {row.file_extension}
                                 </span>
                                 <span className="capitalize text-xs">{row.name}</span>
                             </td>
-                            <td class="py-2 px-3 capitalize text-xs">{row.author}</td>
-                            <td class="py-2 px-3 text-xs">{row.updated}</td>
-                            <td class="py-2 px-3 text-xs">{row.size}</td>
+                            <td className="py-2 px-3 capitalize text-xs">{row.author}</td>
+                            <td className="py-2 px-3 text-xs">{row.updated}</td>
+                            <td className="py-2 px-3 text-xs">{row.size}</td>
                         </tr>
                     ))}
                 </tbody>

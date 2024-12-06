@@ -6,6 +6,69 @@ import SelectableTable from "../../components/SelectableTable/SelectableTable";
 
 
 const NotificationsContent = () => {
+    const formatDate = (date) => {
+        const months = [
+            "Jan", "Fev", "Mars", "Avr", "Mai", "Juin",
+            "Juil", "Août", "Sep", "Oct", "Nov", "Dec",
+        ];
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const time = `${hours % 12 || 12}:${String(minutes).padStart(2, "0")} ${hours < 12 ? "AM" : "PM"
+            }`;
+
+        return `${month} ${day}, ${year}, ${time}`;
+    };
+
+    const headertitle = [
+        "message",
+        "sent_at",
+        "is_read",
+        "method",
+        "severity",
+        "actions",
+    ];
+
+    const datas = [
+        {
+            message: "temperature",
+            sent_at: "25",
+            is_read: "*********",
+            method: "description paiement",
+            severity: "activity",
+        },
+        {
+            message: "stock level",
+            sent_at: "25",
+            is_read: "*********",
+            method: "description paiement",
+            severity: "activity",
+        },
+        {
+            message: "network traffic",
+            sent_at: "1",
+            is_read: "*********",
+            method: "description paiement",
+            severity: "inactivity",
+        },
+        {
+            message: "pression",
+            sent_at: "25",
+            is_read: "*********",
+            method: "description paiement",
+            severity: "inactivity",
+        },
+        {
+            message: "Wilson Philips",
+            sent_at: "25",
+            is_read: "*********",
+            method: "description paiement",
+            severity: "inactivity",
+        }
+    ];
+
     return (
         <div className="grid grid-cols-3 gap-2">
             <div className="col-span-2 bg-white py-2 border rounded">
@@ -22,7 +85,7 @@ const NotificationsContent = () => {
                     </button>
                 </div>
                 <hr />
-                <SelectableTable></SelectableTable>
+                <SelectableTable titlehead={headertitle} values={datas}></SelectableTable>
             </div>
             <div className="col-span-1 bg-white p-5 border rounded">
                 <h1 className="font-medium text-base mb-4">Details</h1>
